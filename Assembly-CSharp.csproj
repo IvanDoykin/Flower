@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Flower\Interactor.cs" />
+    <Compile Include="Assets\Flower\InspectableEvent\InspectableAction.cs" />
     <Compile Include="Assets\Flower\Core\Flow.cs" />
     <Compile Include="Assets\Flower\Core\Container.cs" />
     <Compile Include="Assets\Flower\InspectableType\InspectableTypeDrawer.cs" />

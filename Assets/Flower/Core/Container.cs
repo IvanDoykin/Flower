@@ -18,6 +18,7 @@ namespace Flower
             foreach (var entity in entities)
             {
                 Entities.Add(entity);
+                entity.Initialize();
             }
         }
 

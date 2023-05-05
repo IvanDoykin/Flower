@@ -1,42 +1,57 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Flower
 {
     public abstract class Entity : MonoBehaviour
     {
-        public delegate void EntityMessages();
+        private static int _nextActionId = 0;
+        internal delegate void EntityMessages(object[] messageData);
+        internal Dictionary<int, Action<object[]>> Actions = new Dictionary<int, Action<object[]>>();
 
-        public event EntityMessages Messages;
-
-        protected void InvokeMessages()
+        public void Initialize()
         {
-            Messages.Invoke();
+            for (int i = 0; i < Actions.Count; i++)
+            {
+                Actions[i] = null;
+            }
+            Actions = new Dictionary<int, Action<object[]>>();
+
+            InitialzeActions();
+        }
+        protected abstract void InitialzeActions();
+
+        protected void RegisterAction(ref Action<object[]> action)
+        {
+            int index = _nextActionId;
+
+            Actions.Add(index, action);
+            action += (object[] messageData) => Actions[index]?.Invoke(messageData);
+
+            _nextActionId++;
         }
 
-        public void Reset()
-        {
-            Messages = null;
-        }
-
-        public void Link(EntityMessages message)
+        internal void Link(int actionId, EntityMessages message)
         {
             if (message == null)
             {
                 throw new ArgumentNullException("Try to link 'null' message.");
             }
 
-            Messages += message;
+            Debug.Log($"Link action #{actionId} with {message.Method.Name}");
+            Actions[actionId] += new Action<object[]>(message);
         }
 
-        public void Unlink(EntityMessages message)
+        internal void Unlink(int actionId, EntityMessages message)
         {
             if (message == null)
             {
                 throw new ArgumentNullException("Try to unlink 'null' message.");
             }
 
-            Messages -= message;
+            Debug.Log($"Unlink action #{actionId} with {message.Method.Name}");
+            Actions[actionId] -= new Action<object[]>(message);
         }
     }
 }

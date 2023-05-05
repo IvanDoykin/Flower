@@ -3,8 +3,13 @@ using UnityEngine;
 
 public class Receiver : Entity
 {
-    public void Receive()
+    protected override void InitialzeActions()
     {
-        Debug.Log("Receive");
+
+    }
+
+    public void Receive(object[] messageData)
+    {
+        Debug.Log($"Received with id {(int)messageData[0]}");
     }
 }

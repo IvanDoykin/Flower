@@ -201,6 +201,8 @@ MonoBehaviour:
         PublicKeyToken=null
       qualifiedName: Interactor, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
+    InputEvent:
+      EventId: 0
     OutputClass:
       baseTypeName: Flower.Entity, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
