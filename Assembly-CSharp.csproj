@@ -67,6 +67,9 @@
     <Compile Include="Assets\Flower\InspectableType\InspectableType.cs" />
     <Compile Include="Assets\Flower\InspectableMethod\InspectableMethod.cs" />
     <Compile Include="Assets\Flower\Core\Entity.cs" />
+    <Compile Include="Assets\Flower\Player.cs" />
+    <Compile Include="Assets\Flower\DamageUI.cs" />
+    <Compile Include="Assets\Flower\Enemy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

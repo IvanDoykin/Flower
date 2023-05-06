@@ -56,6 +56,17 @@ namespace Flower
 
             Entities.Add(entity);
             entity.Initialize();
+            entity.Initialize();
+            entity.Initialize();
+            entity.Initialize();
+            entity.Initialize();
+            entity.Initialize();
+            entity.Initialize();
+            entity.Initialize();
+            entity.Initialize();
+            entity.Initialize();
+            entity.Initialize();
+            entity.Initialize();
         }
     }
 }

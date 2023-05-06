@@ -5,7 +5,10 @@ public class Receiver : Entity
 {
     protected override void InitialzeActions()
     {
+    }
 
+    protected override void ResetActions()
+    {
     }
 
     public void Receive(object[] messageData)

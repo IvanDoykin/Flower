@@ -6,31 +6,55 @@ namespace Flower
 {
     public abstract class Entity : MonoBehaviour
     {
-        private static int _nextActionId = 0;
-
         internal delegate void EntityMessages(object[] messageData);
         internal Dictionary<int, Action<object[]>> Actions = new Dictionary<int, Action<object[]>>();
 
+        private int _nextActionId;
+
         internal void Initialize()
         {
-            for (int i = 0; i < Actions.Count; i++)
+            _nextActionId = Actions.Count - 1;
+
+            if (Actions.Count > 0)
             {
-                Actions[i] = null;
+                ResetActions();
             }
+
+            if (_nextActionId != -1)
+            {
+                throw new Exception($"Not all actions were deleted before initialize. Last id = {_nextActionId}");
+            }
+
+            _nextActionId = 0;
             Actions = new Dictionary<int, Action<object[]>>();
 
             InitialzeActions();
         }
+
+        protected abstract void ResetActions();
         protected abstract void InitialzeActions();
 
-        protected void RegisterAction(ref Action<object[]> action)
+        protected void AddAction(ref Action<object[]> action)
         {
+            if (Actions.ContainsValue(action))
+            {
+                throw new Exception("Was try to add contanied action.");
+            }
+
             int index = _nextActionId;
 
             Actions.Add(index, action);
-            action += (object[] messageData) => Actions[index]?.Invoke(messageData);
+            action += (object[] messageData) => Actions[Actions.Count - 1]?.Invoke(messageData);
 
             _nextActionId++;
+        }
+
+        protected void DeleteAction(ref Action<object[]> action)
+        {
+            Actions.Remove(_nextActionId);
+            action = null;
+
+            _nextActionId--;
         }
 
         internal void Link(int actionId, EntityMessages message)

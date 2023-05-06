@@ -9,8 +9,14 @@ public class Interactor : Entity
 
     protected override void InitialzeActions()
     {
-        RegisterAction(ref HasInteracted);
+        AddAction(ref HasInteracted);
     }
+
+    protected override void ResetActions()
+    {
+        DeleteAction(ref HasInteracted);
+    }
+
 
     public void Interact(object[] messageData)
     {
