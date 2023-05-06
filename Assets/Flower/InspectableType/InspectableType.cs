@@ -27,6 +27,7 @@ namespace Flower
 
         public void OnBeforeSerialize()
         {
+            Debug.Log("set qualifName");
             qualifiedName = StoredType?.AssemblyQualifiedName;
 
 #if UNITY_EDITOR
@@ -36,11 +37,15 @@ namespace Flower
 
         public void OnAfterDeserialize()
         {
+            Debug.Log("after s");
+
             if (string.IsNullOrEmpty(qualifiedName) || qualifiedName == "null")
             {
                 StoredType = null;
                 return;
             }
+
+            Debug.Log("set StoredType");
             StoredType = System.Type.GetType(qualifiedName);
         }
 

@@ -7,8 +7,8 @@ namespace Flower
     [ExecuteInEditMode]
     public class Container : MonoBehaviour
     {
-        public List<Flow> Flows = new List<Flow>();
-        public List<Entity> Entities = new List<Entity>();
+        [SerializeField] public List<Flow> Flows = new List<Flow>();
+        [SerializeField] public List<Entity> Entities = new List<Entity>();
 
         public void Initialize()
         {

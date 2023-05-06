@@ -56,6 +56,10 @@ namespace Flower
 
             if (inputEntity != null && outputEntity != null)
             {
+                Debug.Log(flow.InputEvent.EventId);
+                Debug.Log(flow.InputClass.ToString());
+                Debug.Log(flow.OutputClass.ToString());
+                Debug.Log(flow.OutputMethod.Info?.Name);
                 inputEntity.Link(flow.InputEvent.EventId, (Entity.EntityMessages)Delegate.CreateDelegate(typeof(Entity.EntityMessages), outputEntity, flow.OutputMethod.Info, false));
             }
         }
