@@ -11,24 +11,24 @@ namespace Flower
         [SerializeField] private GameObject _testContainer;
         private List<Container> _containers = new List<Container>();
 
-        private void Start()
+        private void Awake()
         {
-            AddContainerFromObject(_testContainer);
+            Container.HasCreated += AddContainer;   
         }
 
-        public void AddContainerFromObject(GameObject subscribingGameobject)
+        private void OnDestroy()
         {
-            _containers.Clear();
+            Container.HasCreated -= AddContainer;
+        }
 
-            if (subscribingGameobject.TryGetComponent(out Container container))
+        private void AddContainer(Container container)
+        {
+            container.Initialize();
+            _containers.Add(container);
+
+            foreach (var flow in container.Flows)
             {
-                container.Initialize();
-                _containers.Add(container);
-
-                foreach (var flow in container.Flows)
-                {
-                    TestFlow(flow);
-                }
+                TestFlow(flow);
             }
         }
 

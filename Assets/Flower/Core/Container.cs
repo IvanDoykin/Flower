@@ -7,23 +7,29 @@ namespace Flower
     [ExecuteInEditMode]
     public class Container : MonoBehaviour
     {
-        [SerializeField] public List<Flow> Flows = new List<Flow>();
-        [SerializeField] public List<Entity> Entities = new List<Entity>();
+        internal static Action<Container> HasCreated;
 
-        public void Initialize()
+        public List<Flow> Flows = new List<Flow>();
+        public List<Entity> Entities = new List<Entity>();
+
+        private void Awake()
+        {
+            HasCreated?.Invoke(this);
+        }
+
+        internal void Initialize()
         {
             Entities.Clear();
 
             var entities = GetComponentsInChildren<Entity>();
             foreach (var entity in entities)
             {
-                Entities.Add(entity);
-                entity.Initialize();
+                AddEntity(entity);
             }
         }
 
+#if UNITY_EDITOR
         [ExecuteInEditMode]
-
         private void Update()
         {
             for (int i = 0; i < Flows.Count; i++)
@@ -31,10 +37,14 @@ namespace Flower
                 Flows[i].OutputMethod.FlowIndex = i;
             }
         }
+#endif
 
         public void AddEntity<T>() where T : Entity
         {
-            Entities.Add(gameObject.AddComponent<T>());
+            var entity = gameObject.AddComponent<T>();
+            entity.Initialize();
+
+            Entities.Add(entity);
         }
 
         public void AddEntity(Entity entity)
@@ -45,6 +55,7 @@ namespace Flower
             }
 
             Entities.Add(entity);
+            entity.Initialize();
         }
     }
 }

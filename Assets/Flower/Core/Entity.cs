@@ -7,10 +7,11 @@ namespace Flower
     public abstract class Entity : MonoBehaviour
     {
         private static int _nextActionId = 0;
+
         internal delegate void EntityMessages(object[] messageData);
         internal Dictionary<int, Action<object[]>> Actions = new Dictionary<int, Action<object[]>>();
 
-        public void Initialize()
+        internal void Initialize()
         {
             for (int i = 0; i < Actions.Count; i++)
             {
