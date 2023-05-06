@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace Flower
 {
-    [System.Serializable]
+    [Serializable]
     public class InspectableType<T> : ISerializationCallbackReceiver
     {
 #if UNITY_EDITOR
@@ -12,9 +13,10 @@ namespace Flower
 #endif
 
         [SerializeField] string qualifiedName;
-        public System.Type StoredType { get; private set; }
 
-        public InspectableType(System.Type typeToStore)
+        internal Type StoredType { get; private set; }
+
+        public InspectableType(Type typeToStore)
         {
             StoredType = typeToStore;
         }
@@ -27,7 +29,6 @@ namespace Flower
 
         public void OnBeforeSerialize()
         {
-            Debug.Log("set qualifName");
             qualifiedName = StoredType?.AssemblyQualifiedName;
 
 #if UNITY_EDITOR
@@ -37,21 +38,18 @@ namespace Flower
 
         public void OnAfterDeserialize()
         {
-            Debug.Log("after s");
-
             if (string.IsNullOrEmpty(qualifiedName) || qualifiedName == "null")
             {
                 StoredType = null;
                 return;
             }
 
-            Debug.Log("set StoredType");
-            StoredType = System.Type.GetType(qualifiedName);
+            StoredType = Type.GetType(qualifiedName);
         }
 
-        public static implicit operator System.Type(InspectableType<T> t) => t.StoredType;
+        public static implicit operator Type(InspectableType<T> t) => t.StoredType;
 
         // TODO: Validate that t is a subtype of T?
-        public static implicit operator InspectableType<T>(System.Type t) => new InspectableType<T>(t);
+        public static implicit operator InspectableType<T>(Type t) => new InspectableType<T>(t);
     }
 }

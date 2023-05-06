@@ -16,32 +16,22 @@ namespace Flower
             get { return _flowIndex; }
             set { _flowIndex = value; }
         }
-        public MethodInfo Info
-        {
-            get
-            {
-                return _info;
-            }
-            private set 
-            {
-                Debug.Log($"set {value.Name}");
-                _info = value; 
-            }
-        }
-        private MethodInfo _info;
+
+        internal MethodInfo Info { get; private set; }
 
         public void OnBeforeSerialize()
         {
-                _methodName = "Receive";
-            Debug.Log($"set methodName");
+            if (Info != null)
+            {
+                _methodName = Info.Name;
+            }
         }
 
         public void OnAfterDeserialize()
         {
             if (!string.IsNullOrEmpty(_methodName) && _methodName != "<empty>")
             {
-                Debug.Log("set Info");
-                Info = typeof(Receiver).GetMethod("Receive");
+                Info = Type.GetType(_type).GetMethod(_methodName);
             }
         }
     }
