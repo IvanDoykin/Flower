@@ -8,6 +8,14 @@ public class Enemy : Entity
 {
     public event Action<object[]> HasKicked;
 
+    [SerializeField] private int _damage;
+    private object[] _damageRaw;
+
+    private void Start()
+    {
+        _damageRaw = new object[1] { _damage };
+    }
+
     protected override void InitialzeActions()
     {
         AddAction(ref HasKicked);
@@ -20,7 +28,6 @@ public class Enemy : Entity
 
     public void Kick(object[] damage)
     {
-        Debug.Log($"Kick with damage = {(int)damage[0]}");
         HasKicked?.Invoke(damage);
     }
 
@@ -28,7 +35,7 @@ public class Enemy : Entity
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
-            Kick(new object[1] { 50 });
+            Kick(_damageRaw);
         }
     }
 }

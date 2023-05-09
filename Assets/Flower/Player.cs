@@ -8,6 +8,14 @@ public class Player : Entity
 {
     public event Action<object[]> HasShoot;
 
+    [SerializeField] private int _damage;
+    private object[] _damageRaw;
+
+    private void Start()
+    {
+        _damageRaw = new object[1] { _damage };
+    }
+
     protected override void InitialzeActions()
     {
         AddAction(ref HasShoot);
@@ -20,15 +28,14 @@ public class Player : Entity
 
     public void Shoot(object[] damage)
     {
-        Debug.Log($"Shoot with damage = {(int)damage[0]}");
         HasShoot?.Invoke(damage);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.S))
         {
-            Shoot(new object[1] { 35 });
+            Shoot(_damageRaw);
         }
     }
 }

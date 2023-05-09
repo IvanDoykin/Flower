@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class DamageUI : Entity
 {
+    [SerializeField] private int _cachedDamage;
     protected override void InitialzeActions()
     {
     }
@@ -15,6 +16,6 @@ public class DamageUI : Entity
 
     public void ShowDamage(object[] damage)
     {
-        Debug.Log($"[Damage: {damage[0]}]");
+        _cachedDamage = (int)damage[0];
     }
 }
