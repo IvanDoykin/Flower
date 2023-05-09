@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Flower
 {
-    [System.Serializable]
+    [Serializable]
     public class InspectableMethod : ISerializationCallbackReceiver
     {
         [SerializeField] private string _methodName;

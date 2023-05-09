@@ -199,9 +199,11 @@ MonoBehaviour:
   - InputClass:
       baseTypeName: Flower.Entity, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      qualifiedName: Player, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      qualifiedName: Enemy, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     InputEvent:
-      EventId: 0
+      _type: Enemy
+      _flowIndex: 0
+      ActionId: 0
     OutputClass:
       baseTypeName: Flower.Entity, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -214,9 +216,11 @@ MonoBehaviour:
   - InputClass:
       baseTypeName: Flower.Entity, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      qualifiedName: Enemy, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      qualifiedName: Player, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     InputEvent:
-      EventId: 0
+      _type: Player
+      _flowIndex: 1
+      ActionId: 0
     OutputClass:
       baseTypeName: Flower.Entity, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null

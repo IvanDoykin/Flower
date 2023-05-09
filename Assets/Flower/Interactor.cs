@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class Interactor : Entity
 {
-    public Action<object[]> HasInteracted;
+    public event Action<object[]> HasInteracted;
 
     protected override void InitialzeActions()
     {

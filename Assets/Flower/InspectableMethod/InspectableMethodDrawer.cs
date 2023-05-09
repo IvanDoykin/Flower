@@ -15,8 +15,6 @@ namespace Flower
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            Debug.Log("GUI");
-
             string newType = GameObject.FindObjectOfType<Container>().Flows[property.FindPropertyRelative("_flowIndex").intValue].OutputClass?.ToString();
 
             var typeProperty = property.FindPropertyRelative("_type");
@@ -27,7 +25,6 @@ namespace Flower
 
             if (_optionLabels == null || newType == "null" || _oldType == "null" || methodName == "<empty>" || newType != _oldType)
             {
-                Debug.Log("check");
                 Initialize(property, storedProperty);
                 storedProperty.stringValue = "<empty>";
             }
@@ -55,7 +52,6 @@ namespace Flower
 
             if (EditorGUI.EndChangeCheck())
             {
-                Debug.Log("end");
                 storedProperty.stringValue = _selectedIndex < _methods.Length ? _methods[_selectedIndex].Name : "<empty>";
             }
             EditorGUI.EndProperty();

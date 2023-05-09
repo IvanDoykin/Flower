@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Enemy : Entity
 {
-    public Action<object[]> HasKicked;
+    public event Action<object[]> HasKicked;
 
     protected override void InitialzeActions()
     {

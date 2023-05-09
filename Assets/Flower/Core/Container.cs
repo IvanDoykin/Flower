@@ -35,6 +35,7 @@ namespace Flower
             for (int i = 0; i < Flows.Count; i++)
             {
                 Flows[i].OutputMethod.FlowIndex = i;
+                Flows[i].InputEvent.FlowIndex = i;
             }
         }
 #endif

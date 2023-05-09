@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    public Action<object[]> HasShoot;
+    public event Action<object[]> HasShoot;
 
     protected override void InitialzeActions()
     {
