@@ -7,6 +7,8 @@ using UnityEngine;
 
 namespace Flower
 {
+#if UNITY_EDITOR
+
     [CustomPropertyDrawer(typeof(InspectableAction), true)]
     public class InspectableActionDrawer : PropertyDrawer
     {
@@ -107,4 +109,6 @@ namespace Flower
         }
 
     }
+
+#endif
 }

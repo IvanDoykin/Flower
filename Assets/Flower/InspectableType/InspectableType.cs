@@ -6,10 +6,7 @@ namespace Flower
     [Serializable]
     public class InspectableType<T> : ISerializationCallbackReceiver
     {
-#if UNITY_EDITOR
         [SerializeField] string baseTypeName;
-#endif
-
         [SerializeField] string qualifiedName;
 
         internal Type StoredType { get; private set; }
