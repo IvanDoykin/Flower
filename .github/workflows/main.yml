@@ -60,7 +60,10 @@ jobs:
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
       # Output
-      - uses: actions/upload-artifact@v2
+      - name: Upload to gdrive
+        uses: adityak74/google-drive-upload-git-action@main
         with:
-          name: Flower-${{ steps.date.outputs.date }}
-          path: build
+          credentials: ${{ secrets.credentials }}
+          filename: "Flower-${{ steps.date.outputs.date }}.zip"
+          folderId: ${{ secrets.folderId }}
+          overwrite: "true"
