@@ -66,4 +66,3 @@ jobs:
           credentials: ${{ secrets.credentials }}
           filename: "Flower-${{ steps.date.outputs.date }}.zip"
           folderId: ${{ secrets.folderId }}
-          overwrite: "true"
