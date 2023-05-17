@@ -55,3 +55,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: StandaloneWindows
+
+    container : 
+        image : unityci/editor
+        options: --user root
