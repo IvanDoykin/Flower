@@ -20,7 +20,7 @@ jobs:
         id: lfs-cache
         with:
           path: .git/lfs
-          key: ${{ runner.os }}-lfs-${{ hashFiles('.lfs-assets-id') }}
+          key: ${Windows-lfs-${{ hashFiles('.lfs-assets-id') }}
 
       - name: Git LFS Pull
         run: |
