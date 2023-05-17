@@ -57,5 +57,5 @@ jobs:
           targetPlatform: StandaloneWindows
 
     container : 
-        image : unityci/editor
+        image : 0b5a0f:99cce020e6fc4c9f8ee4b53311242321
         options: --user root
