@@ -55,7 +55,3 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: StandaloneWindows
-
-    container : 
-        image : 0b5a0f:99cce020e6fc4c9f8ee4b53311242321
-        options: --user root
