@@ -24,8 +24,6 @@ jobs:
 
       - name: Git LFS Pull
         run: |
-          apt install git
-          apt install git-lfs
           git lfs pull
           git add .
           git reset --hard
@@ -55,3 +53,4 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: StandaloneWindows
+          allowDirtyBuild: true
