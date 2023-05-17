@@ -55,7 +55,3 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: StandaloneWindows
-
-    container : 
-        image : alpine:latest
-        options: --user root
