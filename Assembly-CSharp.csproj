@@ -59,19 +59,18 @@
     <Compile Include="Assets\Flower\Interactor.cs" />
     <Compile Include="Assets\Flower\InspectableAction\InspectableAction.cs" />
     <Compile Include="Assets\Flower\Core\Flow\Flow.cs" />
-    <Compile Include="Assets\Flower\Core\Flow\FlowDrawer.cs" />
     <Compile Include="Assets\Flower\Core\Container.cs" />
     <Compile Include="Assets\Flower\DamageUI.cs" />
-    <Compile Include="Assets\Flower\InspectableType\InspectableTypeDrawer.cs" />
     <Compile Include="Assets\Flower\Player.cs" />
-    <Compile Include="Assets\Flower\InspectableAction\InspectableActionDrawer.cs" />
-    <Compile Include="Assets\Flower\InspectableMethod\InspectableMethodDrawer.cs" />
     <Compile Include="Assets\Flower\Receiver.cs" />
     <Compile Include="Assets\Flower\Core\ContainerBinder.cs" />
     <Compile Include="Assets\Flower\InspectableType\InspectableType.cs" />
     <Compile Include="Assets\Flower\InspectableMethod\InspectableMethod.cs" />
     <Compile Include="Assets\Flower\Enemy.cs" />
     <Compile Include="Assets\Flower\Core\Entity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\test.txt.txt" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
