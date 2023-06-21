@@ -198,35 +198,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Flows:
   - InputClass:
-      baseTypeName: Flower.Entity, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      qualifiedName: Enemy, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      baseTypeName: Flower.Entity, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      qualifiedName: Enemy, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     InputEvent:
       _type: Enemy
       _flowIndex: 0
       ActionId: 0
     OutputClass:
-      baseTypeName: Flower.Entity, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      qualifiedName: DamageUI, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
+      baseTypeName: Flower.Entity, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      qualifiedName: Enemy, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     OutputMethod:
-      _methodName: ShowDamage
-      _type: DamageUI
+      _methodName: Kick
+      _type: Enemy
       _flowIndex: 0
   - InputClass:
-      baseTypeName: Flower.Entity, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      qualifiedName: Player, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      baseTypeName: Flower.Entity, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      qualifiedName: Interactor, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     InputEvent:
-      _type: Player
+      _type: Interactor
       _flowIndex: 1
       ActionId: 0
     OutputClass:
-      baseTypeName: Flower.Entity, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      qualifiedName: DamageUI, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
+      baseTypeName: Flower.Entity, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      qualifiedName: DamageUI, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     OutputMethod:
       _methodName: ShowDamage
       _type: DamageUI
