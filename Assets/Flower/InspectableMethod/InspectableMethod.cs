@@ -10,11 +10,18 @@ namespace Flower
         [SerializeField] private string _methodName;
         [SerializeField] private string _type;
         [SerializeField] private int _flowIndex;
+        [SerializeField] private int _containerId = -1;
 
         internal int FlowIndex
         {
             get { return _flowIndex; }
             set { _flowIndex = value; }
+        }
+
+        internal int ContainerId
+        {
+            get { return _containerId; }
+            set { _containerId = value; }
         }
 
         internal MethodInfo Info { get; private set; }

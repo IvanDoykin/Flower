@@ -15,7 +15,7 @@ namespace Flower
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            string newType = GameObject.FindObjectOfType<Container>().Flows[property.FindPropertyRelative("_flowIndex").intValue].OutputClass?.ToString();
+            string newType = GameObject.FindObjectOfType<ContainerBinder>().GetContainer(property.FindPropertyRelative("_containerId").intValue).Flows[property.FindPropertyRelative("_flowIndex").intValue].OutputClass?.ToString();
 
             var typeProperty = property.FindPropertyRelative("_type");
             typeProperty.stringValue = newType;

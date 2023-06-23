@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Flower
 {
-    [ExecuteInEditMode]
+    [ExecuteAlways]
     public class Container : MonoBehaviour
     {
         internal static Action<Container> HasCreated;
@@ -12,8 +12,12 @@ namespace Flower
         public List<Flow> Flows = new List<Flow>();
         public List<Entity> Entities = new List<Entity>();
 
+        internal int Id;
+
+        [ExecuteAlways]
         private void Awake()
         {
+            Debug.Log("Has created");
             HasCreated?.Invoke(this);
         }
 
@@ -34,6 +38,9 @@ namespace Flower
         {
             for (int i = 0; i < Flows.Count; i++)
             {
+                Flows[i].InputEvent.ContainerId = Id;
+                Flows[i].OutputMethod.ContainerId = Id;
+
                 Flows[i].OutputMethod.FlowIndex = i;
                 Flows[i].InputEvent.FlowIndex = i;
             }
@@ -56,17 +63,6 @@ namespace Flower
             }
 
             Entities.Add(entity);
-            entity.Initialize();
-            entity.Initialize();
-            entity.Initialize();
-            entity.Initialize();
-            entity.Initialize();
-            entity.Initialize();
-            entity.Initialize();
-            entity.Initialize();
-            entity.Initialize();
-            entity.Initialize();
-            entity.Initialize();
             entity.Initialize();
         }
     }
