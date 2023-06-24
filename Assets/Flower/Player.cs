@@ -33,7 +33,7 @@ public class Player : Entity
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             Shoot(_damageRaw);
         }

@@ -17,5 +17,6 @@ public class DamageUI : Entity
     public void ShowDamage(object[] damage)
     {
         _cachedDamage = (int)damage[0];
+        Debug.Log(_cachedDamage);
     }
 }
