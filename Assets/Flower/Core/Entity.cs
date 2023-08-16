@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Flower
 {
-    public abstract class Entity : MonoBehaviour
+    public abstract class Entity : MonoBehaviour, IEntityInterface
     {
         internal delegate void EntityMessages(object[] messageData);
         internal Dictionary<int, Action<object[]>> Actions = new Dictionary<int, Action<object[]>>();
@@ -22,7 +22,7 @@ namespace Flower
 
             if (_nextActionId != -1)
             {
-                throw new Exception($"Not all actions were deleted before initialize. Last id = {_nextActionId}");
+                throw new Exception($"Not all actions were deleted before initialize. Last id = {_nextActionId}.");
             }
 
             _nextActionId = 0;
@@ -64,7 +64,7 @@ namespace Flower
                 throw new ArgumentNullException("Try to link 'null' message.");
             }
 
-            Debug.Log($"Link action #{actionId} with {message.Method.Name}");
+            Debug.Log($"Link action #{actionId} with {message.Method.Name}.");
             Actions[actionId] += new Action<object[]>(message);
         }
 

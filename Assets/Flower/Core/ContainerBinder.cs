@@ -65,12 +65,16 @@ namespace Flower
                 foreach (var entity in container.Value.Entities)
                 {
                     var entityType = entity.GetType();
-                    if (entityType == flow.OutputClass)
+
+                    Debug.Log($"{entityType} is derived from {flow.OutputClass} = {flow.OutputClass.StoredType.IsAssignableFrom(entityType)}.");
+                    Debug.Log($"{entityType} is derived from {flow.InputClass.StoredType} = {flow.InputClass.StoredType.IsAssignableFrom(entityType)}.");
+
+                    if (flow.OutputClass.StoredType.IsAssignableFrom(entityType))
                     {
                         outputEntity = entity;
                     }
 
-                    else if (entityType == flow.InputClass.StoredType)
+                    else if (flow.InputClass.StoredType.IsAssignableFrom(entityType))
                     {
                         inputEntity = entity;
                     }

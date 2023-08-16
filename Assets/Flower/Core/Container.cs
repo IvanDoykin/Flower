@@ -17,7 +17,7 @@ namespace Flower
         [ExecuteAlways]
         private void Awake()
         {
-            Debug.Log("Has created");
+            Debug.Log("Container has created.");
             HasCreated?.Invoke(this);
         }
 

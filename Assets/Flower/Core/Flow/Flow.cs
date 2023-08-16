@@ -8,9 +8,9 @@ namespace Flower
     [Serializable]
     public class Flow
     {
-        public InspectableType<Entity> InputClass;
+        public InspectableType<IEntityInterface> InputClass;
         public InspectableAction InputEvent;
-        public InspectableType<Entity> OutputClass;
+        public InspectableType<IEntityInterface> OutputClass;
         public InspectableMethod OutputMethod;
     }
 }
