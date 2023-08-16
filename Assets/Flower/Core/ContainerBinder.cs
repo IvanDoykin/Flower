@@ -17,11 +17,7 @@ namespace Flower
         {
             _containers = new Dictionary<int, Container>();
             _containerLastId = 0;
-        }
 
-        [ExecuteAlways]
-        private void Awake()
-        {
             Container.HasCreated += AddContainer;
             foreach (var container in FindObjectsOfType<Container>())
             {
@@ -29,7 +25,7 @@ namespace Flower
             }
         }
 
-        private void OnDestroy()
+        private void OnDisable()
         {
             Container.HasCreated -= AddContainer;
         }
@@ -49,6 +45,8 @@ namespace Flower
 
             container.Id = _containerLastId;
             _containers.Add(_containerLastId, container);
+            Debug.Log($"Container with id:{container.Id} has created.");
+
             _containerLastId++;
 
             foreach (var flow in container.Flows)
