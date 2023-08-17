@@ -51,33 +51,30 @@ namespace Flower
 
             foreach (var flow in container.Flows)
             {
-                LinkFlow(flow);
+                LinkFlow(flow, container);
             }
         }
 
-        private void LinkFlow(Flow flow)
+        private void LinkFlow(Flow flow, Container container)
         {
             Entity outputEntity = null;
             Entity inputEntity = null;
 
-            foreach (var container in _containers)
+            foreach (var entity in container.Entities)
             {
-                foreach (var entity in container.Value.Entities)
+                var entityType = entity.GetType();
+
+                Debug.Log($"{entityType} is derived from {flow.OutputClass} = {flow.OutputClass.StoredType.IsAssignableFrom(entityType)}.");
+                Debug.Log($"{entityType} is derived from {flow.InputClass.StoredType} = {flow.InputClass.StoredType.IsAssignableFrom(entityType)}.");
+
+                if (flow.OutputClass.StoredType.IsAssignableFrom(entityType))
                 {
-                    var entityType = entity.GetType();
+                    outputEntity = entity;
+                }
 
-                    Debug.Log($"{entityType} is derived from {flow.OutputClass} = {flow.OutputClass.StoredType.IsAssignableFrom(entityType)}.");
-                    Debug.Log($"{entityType} is derived from {flow.InputClass.StoredType} = {flow.InputClass.StoredType.IsAssignableFrom(entityType)}.");
-
-                    if (flow.OutputClass.StoredType.IsAssignableFrom(entityType))
-                    {
-                        outputEntity = entity;
-                    }
-
-                    else if (flow.InputClass.StoredType.IsAssignableFrom(entityType))
-                    {
-                        inputEntity = entity;
-                    }
+                else if (flow.InputClass.StoredType.IsAssignableFrom(entityType))
+                {
+                    inputEntity = entity;
                 }
             }
 
