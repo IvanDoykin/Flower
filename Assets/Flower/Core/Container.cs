@@ -8,6 +8,7 @@ namespace Flower
     public class Container : MonoBehaviour
     {
         internal static Action<Container> HasCreated;
+        internal static Action<Container> HasDestroyed;
 
         public List<Flow> Flows = new List<Flow>();
         public List<Entity> Entities = new List<Entity>();
@@ -19,6 +20,13 @@ namespace Flower
         {
             Debug.Log("Container has created.");
             HasCreated?.Invoke(this);
+        }
+
+        [ExecuteAlways]
+        private void OnDestroy()
+        {
+            Debug.Log("Container has destroyed.");
+            HasDestroyed?.Invoke(this);
         }
 
         internal void Initialize()

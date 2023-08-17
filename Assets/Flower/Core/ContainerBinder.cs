@@ -19,6 +19,8 @@ namespace Flower
             _containerLastId = 0;
 
             Container.HasCreated += AddContainer;
+            Container.HasDestroyed += RemoveContainer;
+
             foreach (var container in FindObjectsOfType<Container>())
             {
                 AddContainer(container);
@@ -28,6 +30,7 @@ namespace Flower
         private void OnDisable()
         {
             Container.HasCreated -= AddContainer;
+            Container.HasDestroyed -= RemoveContainer;
         }
 
         internal Container GetContainer(int containerId)
@@ -37,6 +40,12 @@ namespace Flower
                 throw new Exception($"Container with id:{containerId} not found.");
             }
             return _containers[containerId];
+        }
+
+        private void RemoveContainer(Container container)
+        {
+            _containers.Remove(container.Id);
+            Debug.Log($"Container with id:{container.Id} has removed.");
         }
 
         private void AddContainer(Container container)
