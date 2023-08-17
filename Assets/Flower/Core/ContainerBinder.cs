@@ -9,12 +9,14 @@ namespace Flower
     [ExecuteAlways]
     public class ContainerBinder : MonoBehaviour
     {
+        [SerializeField] private List<Container> _containersDebug = new List<Container>();
         private Dictionary<int, Container> _containers = new Dictionary<int, Container>();
         private int _containerLastId = 0;
 
         [ExecuteAlways]
-        private void OnEnable()
+        private void Start()
         {
+            Debug.Log("Binder has initialized.");
             _containers = new Dictionary<int, Container>();
             _containerLastId = 0;
 
@@ -23,11 +25,23 @@ namespace Flower
 
             foreach (var container in FindObjectsOfType<Container>())
             {
+                Debug.Log("Bind container.");
                 AddContainer(container);
             }
         }
 
-        private void OnDisable()
+        [ExecuteAlways]
+        private void Update()
+        {
+            _containersDebug.Clear();
+            foreach (var container in _containers.Values)
+            {
+                _containersDebug.Add(container);
+            }
+        }
+
+        [ExecuteAlways]
+        private void OnDestroy()
         {
             Container.HasCreated -= AddContainer;
             Container.HasDestroyed -= RemoveContainer;
@@ -60,14 +74,17 @@ namespace Flower
 
             foreach (var flow in container.Flows)
             {
-                LinkFlow(flow, container);
+                if (flow != null && flow.Validate())
+                {
+                    LinkFlow(flow, container);
+                }
             }
         }
 
         private void LinkFlow(Flow flow, Container container)
         {
-            Entity outputEntity = null;
-            Entity inputEntity = null;
+            List<Entity> outputEntities = new List<Entity>();
+            List<Entity> inputEntities = new List<Entity>();
 
             foreach (var entity in container.Entities)
             {
@@ -78,18 +95,24 @@ namespace Flower
 
                 if (flow.OutputClass.StoredType.IsAssignableFrom(entityType))
                 {
-                    outputEntity = entity;
+                    outputEntities.Add(entity);
                 }
 
                 else if (flow.InputClass.StoredType.IsAssignableFrom(entityType))
                 {
-                    inputEntity = entity;
+                    inputEntities.Add(entity);
                 }
             }
 
-            if (inputEntity != null && outputEntity != null)
+            if (outputEntities.Count > 0 && inputEntities.Count > 0)
             {
-                inputEntity.Link(flow.InputEvent.ActionId, (Entity.EntityMessages)Delegate.CreateDelegate(typeof(Entity.EntityMessages), outputEntity, flow.OutputMethod.Info, false));
+                for (int i = 0; i < outputEntities.Count; i++)
+                {
+                    for (int j = 0; j < inputEntities.Count; j++)
+                    {
+                        inputEntities[j].Link(flow.InputEvent.ActionId, (Entity.EntityMessages)Delegate.CreateDelegate(typeof(Entity.EntityMessages), outputEntities[i], flow.OutputMethod.Info, false));
+                    }
+                }
             }
         }
     }

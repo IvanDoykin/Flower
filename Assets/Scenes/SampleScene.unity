@@ -152,7 +152,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &29680796
 MonoBehaviour:
@@ -166,50 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc023b374657045439a49e81f81fcc27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &45459392
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 45459394}
-  - component: {fileID: 45459393}
-  m_Layer: 0
-  m_Name: Player
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &45459393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 45459392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 092be70c9fa34f5439ae705d95cef555, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _damage: 255
---- !u!4 &45459394
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 45459392}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 525823743}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  _containersDebug:
+  - {fileID: 120244458}
 --- !u!1 &120244457
 GameObject:
   m_ObjectHideFlags: 0
@@ -243,24 +201,27 @@ MonoBehaviour:
   - InputClass:
       baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      qualifiedName: IPlayer, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      qualifiedName: CrazyPlayer, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     InputEvent:
-      _type: IPlayer
+      _type: CrazyPlayer
       _flowIndex: 0
-      _containerId: 2
+      _containerId: 0
       ActionId: 0
     OutputClass:
       baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      qualifiedName: DamageUI, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      qualifiedName: UI, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     OutputMethod:
-      _methodName: ShowDamage
-      _type: DamageUI
+      _methodName: ShowDebugInfo
+      _type: UI
       _flowIndex: 0
-      _containerId: 2
+      _containerId: 0
   Entities:
+  - {fileID: 1446427742}
   - {fileID: 1480161634}
   - {fileID: 533663838}
+  - {fileID: 1535883374}
+  - {fileID: 1562830721}
 --- !u!4 &120244459
 Transform:
   m_ObjectHideFlags: 0
@@ -272,75 +233,11 @@ Transform:
   m_LocalPosition: {x: 6.352249, y: 78.8469, z: 51.315018}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1446427743}
   - {fileID: 1480161635}
   - {fileID: 533663839}
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &525823741
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 525823743}
-  - component: {fileID: 525823742}
-  m_Layer: 0
-  m_Name: Container
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &525823742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 525823741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee69bb212d2564443af20cf3e4900a6b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Flows:
-  - InputClass:
-      baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      qualifiedName: IPlayer, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    InputEvent:
-      _type: IPlayer
-      _flowIndex: 0
-      _containerId: 3
-      ActionId: 0
-    OutputClass:
-      baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      qualifiedName: UI, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    OutputMethod:
-      _methodName: ShowDebugInfo
-      _type: UI
-      _flowIndex: 0
-      _containerId: 3
-  Entities:
-  - {fileID: 45459393}
-  - {fileID: 816164880}
---- !u!4 &525823743
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 525823741}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.352249, y: 78.8469, z: 51.315018}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 45459394}
-  - {fileID: 816164881}
+  - {fileID: 1535883373}
+  - {fileID: 1562830720}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -373,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 931f02b392cd306478cc2d261a2e9b48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cachedDamage: 0
+  _cachedDamage: 46
 --- !u!4 &533663839
 Transform:
   m_ObjectHideFlags: 0
@@ -386,9 +283,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 120244459}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &816164879
+--- !u!1 &1446427741
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -396,41 +293,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 816164881}
-  - component: {fileID: 816164880}
+  - component: {fileID: 1446427743}
+  - component: {fileID: 1446427742}
   m_Layer: 0
-  m_Name: DamageUI
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &816164880
+--- !u!114 &1446427742
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 816164879}
+  m_GameObject: {fileID: 1446427741}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 931f02b392cd306478cc2d261a2e9b48, type: 3}
+  m_Script: {fileID: 11500000, guid: 092be70c9fa34f5439ae705d95cef555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cachedDamage: 0
---- !u!4 &816164881
+  _damage: 17
+--- !u!4 &1446427743
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 816164879}
+  m_GameObject: {fileID: 1446427741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 525823743}
-  m_RootOrder: 1
+  m_Father: {fileID: 120244459}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1480161633
 GameObject:
@@ -474,5 +371,93 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 120244459}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1535883372
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1535883373}
+  - component: {fileID: 1535883374}
+  m_Layer: 0
+  m_Name: DamageUI (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1535883373
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535883372}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 120244459}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1535883374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1535883372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931f02b392cd306478cc2d261a2e9b48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cachedDamage: 305
+--- !u!1 &1562830719
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1562830720}
+  - component: {fileID: 1562830721}
+  m_Layer: 0
+  m_Name: DamageUI (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1562830720
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1562830719}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 120244459}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1562830721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1562830719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931f02b392cd306478cc2d261a2e9b48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cachedDamage: 56

@@ -12,5 +12,10 @@ namespace Flower
         public InspectableAction InputEvent;
         public InspectableType<IEntityInterface> OutputClass;
         public InspectableMethod OutputMethod;
+
+        internal bool Validate()
+        {
+            return InputClass != null && InputEvent != null && OutputClass != null && OutputMethod != null;
+        }
     }
 }
