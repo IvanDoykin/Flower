@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace Flower
@@ -8,6 +10,7 @@ namespace Flower
     {
         internal delegate void EntityMessages(object[] messageData);
         internal Dictionary<int, Action<object[]>> Actions = new Dictionary<int, Action<object[]>>();
+        private Dictionary<(string, int), Action<object[]>> _externalActions = new Dictionary<(string, int), Action<object[]>>();
 
         private int _nextActionId;
 
@@ -27,6 +30,7 @@ namespace Flower
 
             _nextActionId = 0;
             Actions = new Dictionary<int, Action<object[]>>();
+            _externalActions = new Dictionary<(string, int), Action<object[]>>();
 
             InitialzeActions();
         }
@@ -57,26 +61,26 @@ namespace Flower
             _nextActionId--;
         }
 
-        internal void Link(int actionId, EntityMessages message)
+        internal void Link(int actionId, EntityMessages message, int messageHash)
         {
-            if (message == null)
+            if (_externalActions.TryGetValue((message.Method.Name, messageHash), out Action<object[]> checkedAction))
             {
-                throw new ArgumentNullException("Try to link 'null' message.");
+                Debug.LogError("This message has already linked.");
+                return;
             }
 
-            Debug.Log($"Link action #{actionId} with {message.Method.Name}.");
-            Actions[actionId] += new Action<object[]>(message);
+            var action = new Action<object[]>(message);
+            Actions[actionId] += action;
+            _externalActions.Add((message.Method.Name, messageHash), action);
         }
 
-        internal void Unlink(int actionId, EntityMessages message)
+        internal void Unlink(int actionId, MethodInfo method, int messageHash)
         {
-            if (message == null)
+            if (_externalActions.TryGetValue((method.Name, messageHash), out Action<object[]> checkedAction))
             {
-                throw new ArgumentNullException("Try to unlink 'null' message.");
+                Actions[actionId] -= checkedAction;
+                _externalActions.Remove((method.Name, messageHash));
             }
-
-            Debug.Log($"Unlink action #{actionId} with {message.Method.Name}");
-            Actions[actionId] -= new Action<object[]>(message);
         }
     }
 }

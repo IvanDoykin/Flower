@@ -81,7 +81,60 @@ namespace Flower
             }
         }
 
+        private bool ValidateFlow(Flow checkFlow, Container container)
+        {
+            foreach (var flow in container.Flows)
+            {
+                if (checkFlow.InputClass.GetType() == flow.InputClass.GetType() && checkFlow.InputEvent == flow.InputEvent)
+                {
+                    container.Flows.Remove(flow);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private void LinkFlow(Flow flow, Container container)
+        {
+            if (!ValidateFlow(flow, container))
+            {
+                throw new Exception("False validate");
+            }
+            List<Entity> outputEntities = new List<Entity>();
+            List<Entity> inputEntities = new List<Entity>();
+
+            foreach (var entity in container.Entities)
+            {
+                var entityType = entity.GetType();
+
+                Debug.Log($"{entityType} is derived from {flow.OutputClass} = {flow.OutputClass.StoredType.IsAssignableFrom(entityType)}.");
+                Debug.Log($"{entityType} is derived from {flow.InputClass.StoredType} = {flow.InputClass.StoredType.IsAssignableFrom(entityType)}.");
+
+                if (flow.OutputClass.StoredType.IsAssignableFrom(entityType))
+                {
+                    outputEntities.Add(entity);
+                }
+
+                else if (flow.InputClass.StoredType.IsAssignableFrom(entityType))
+                {
+                    inputEntities.Add(entity);
+                }
+            }
+
+            if (outputEntities.Count > 0 && inputEntities.Count > 0)
+            {
+                for (int i = 0; i < outputEntities.Count; i++)
+                {
+                    for (int j = 0; j < inputEntities.Count; j++)
+                    {
+                        inputEntities[j].Link(flow.InputEvent.ActionId, (Entity.EntityMessages)Delegate.CreateDelegate(typeof(Entity.EntityMessages), outputEntities[i], flow.OutputMethod.Info, false), outputEntities[i].GetHashCode());
+                    }
+                }
+            }
+        }
+
+        public void UnlinkFlow(Flow flow, Container container)
         {
             List<Entity> outputEntities = new List<Entity>();
             List<Entity> inputEntities = new List<Entity>();
@@ -110,7 +163,8 @@ namespace Flower
                 {
                     for (int j = 0; j < inputEntities.Count; j++)
                     {
-                        inputEntities[j].Link(flow.InputEvent.ActionId, (Entity.EntityMessages)Delegate.CreateDelegate(typeof(Entity.EntityMessages), outputEntities[i], flow.OutputMethod.Info, false));
+                        container.Flows.Remove(flow);
+                        inputEntities[j].Unlink(flow.InputEvent.ActionId, flow.OutputMethod.Info, outputEntities[i].GetHashCode());
                     }
                 }
             }

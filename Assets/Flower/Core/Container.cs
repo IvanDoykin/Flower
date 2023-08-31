@@ -29,6 +29,12 @@ namespace Flower
             HasDestroyed?.Invoke(this);
         }
 
+        [ContextMenu("Delete last flow")]
+        private void DeleteLastFlow()
+        {
+            FindObjectOfType<ContainerBinder>().UnlinkFlow(Flows[Flows.Count - 1], this);
+        }
+
         internal void Initialize()
         {
             Entities.Clear();

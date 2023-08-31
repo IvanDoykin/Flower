@@ -166,7 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc023b374657045439a49e81f81fcc27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _containersDebug: []
+  _containersDebug:
+  - {fileID: 120244458}
 --- !u!1 &120244457
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,19 +201,19 @@ MonoBehaviour:
   - InputClass:
       baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      qualifiedName: CrazyPlayer, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      qualifiedName: IPlayer, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     InputEvent:
-      _type: CrazyPlayer
+      _type: IPlayer
       _flowIndex: 0
       _containerId: 0
       ActionId: 0
     OutputClass:
       baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      qualifiedName: UI, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      qualifiedName: DamageUI, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     OutputMethod:
-      _methodName: ShowDebugInfo
-      _type: UI
+      _methodName: ShowDamage
+      _type: DamageUI
       _flowIndex: 0
       _containerId: 0
   Entities:
