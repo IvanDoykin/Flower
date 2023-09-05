@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Flower
@@ -7,11 +8,11 @@ namespace Flower
     [ExecuteAlways]
     public class Container : MonoBehaviour
     {
-        internal static Action<Container> HasCreated;
-        internal static Action<Container> HasDestroyed;
-
         public List<Flow> Flows = new List<Flow>();
         public List<Entity> Entities = new List<Entity>();
+
+        internal static Action<Container> HasCreated;
+        internal static Action<Container> HasDestroyed;
 
         internal int Id;
 
@@ -27,12 +28,6 @@ namespace Flower
         {
             Debug.Log("Container has destroyed.");
             HasDestroyed?.Invoke(this);
-        }
-
-        [ContextMenu("Delete last flow")]
-        private void DeleteLastFlow()
-        {
-            FindObjectOfType<ContainerBinder>().UnlinkFlow(Flows[Flows.Count - 1], this);
         }
 
         internal void Initialize()

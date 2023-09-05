@@ -3,18 +3,24 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Flower
 {
-    [ExecuteAlways]
-    public class ContainerBinder : MonoBehaviour
+    public class ContainerBinder
     {
-        [SerializeField] private List<Container> _containersDebug = new List<Container>();
+        public static ContainerBinder Instance => _instance;
+        private static ContainerBinder _instance = new ContainerBinder();
+
         private Dictionary<int, Container> _containers = new Dictionary<int, Container>();
         private int _containerLastId = 0;
 
-        [ExecuteAlways]
-        private void Start()
+        public ContainerBinder() 
+        {
+            Initialize();
+        }
+
+        private void Initialize()
         {
             Debug.Log("Binder has initialized.");
             _containers = new Dictionary<int, Container>();
@@ -23,25 +29,19 @@ namespace Flower
             Container.HasCreated += AddContainer;
             Container.HasDestroyed += RemoveContainer;
 
-            foreach (var container in FindObjectsOfType<Container>())
+            foreach (var container in GameObject.FindObjectsOfType<Container>())
             {
                 Debug.Log("Bind container.");
                 AddContainer(container);
             }
         }
 
-        [ExecuteAlways]
-        private void Update()
+        private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
         {
-            _containersDebug.Clear();
-            foreach (var container in _containers.Values)
-            {
-                _containersDebug.Add(container);
-            }
+            Debug.LogError("Loaded");
         }
 
-        [ExecuteAlways]
-        private void OnDestroy()
+        private void Dispose()
         {
             Container.HasCreated -= AddContainer;
             Container.HasDestroyed -= RemoveContainer;
@@ -79,12 +79,19 @@ namespace Flower
                     LinkFlow(flow, container);
                 }
             }
+
+            Debug.LogError("Containers = " + _containers.Count);
         }
 
         private bool ValidateFlow(Flow checkFlow, Container container)
         {
             foreach (var flow in container.Flows)
             {
+                if (flow == checkFlow)
+                {
+                    continue;
+                }
+
                 if (checkFlow.InputClass.GetType() == flow.InputClass.GetType() && checkFlow.InputEvent == flow.InputEvent)
                 {
                     container.Flows.Remove(flow);
