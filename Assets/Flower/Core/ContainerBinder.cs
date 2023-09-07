@@ -17,7 +17,22 @@ namespace Flower
 
         public ContainerBinder() 
         {
-            Initialize();
+            if (_instance != null)
+            {
+                Reinitialize();
+            }
+            else
+            {
+                Initialize();
+            }
+        }
+
+        [ContextMenu("Reinitialize")]
+        private void Reinitialize()
+        {
+            _instance?.Dispose();
+            _instance = new ContainerBinder();
+            _instance.Initialize();
         }
 
         private void Initialize()

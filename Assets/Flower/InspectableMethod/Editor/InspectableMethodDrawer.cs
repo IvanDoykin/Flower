@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -8,100 +9,86 @@ namespace Flower
     [CustomPropertyDrawer(typeof(InspectableMethod), true)]
     public class InspectableMethodDrawer : PropertyDrawer
     {
-        private MethodInfo[] _methods;
-        private GUIContent[] _optionLabels;
-        private int _selectedIndex;
-        private string _oldType = "null";
+        private Dictionary<string, MethodInfo[]> _methods = new Dictionary<string, MethodInfo[]>();
+        private Dictionary<string, GUIContent[]> _optionLabels = new Dictionary<string, GUIContent[]>();
+        private Dictionary<string, int> _selectedIndices = new Dictionary<string, int>();
+        private Dictionary<string, string> _oldTypes = new Dictionary<string, string>();
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
-        {//
-            string newType = ContainerBinder.Instance.GetContainer(property.FindPropertyRelative("_containerId").intValue).Flows[property.FindPropertyRelative("_flowIndex").intValue].OutputClass?.ToString();
+        {
+            string propertyPath = property.propertyPath;
 
+            string newType = ContainerBinder.Instance.GetContainer(property.FindPropertyRelative("_containerId").intValue).Flows[property.FindPropertyRelative("_flowIndex").intValue].OutputClass?.ToString();
             var typeProperty = property.FindPropertyRelative("_type");
             typeProperty.stringValue = newType;
 
             var storedProperty = property.FindPropertyRelative("_methodName");
             string methodName = storedProperty.stringValue;
 
-            if (_optionLabels == null || newType == "null" || _oldType == "null" || methodName == "<empty>" || newType != _oldType)
+            if (!_oldTypes.ContainsKey(propertyPath) || _oldTypes[propertyPath] != newType)
             {
-                Initialize(property, storedProperty);
-                storedProperty.stringValue = "<empty>";
-            }
-            else if (_selectedIndex == _methods.Length)
-            {
-                if (methodName != "<empty>")
-                {
-                    Initialize(property, storedProperty);
-                }
-            }
-            else
-            {
-                if (methodName != _methods[_selectedIndex].Name) 
-                {
-                    Initialize(property, storedProperty);
-                }
+                Initialize(property, storedProperty, propertyPath);
             }
 
-            _oldType = newType;
+            _oldTypes[propertyPath] = newType;
 
             EditorGUI.BeginChangeCheck();
 
             var propLabel = EditorGUI.BeginProperty(position, label, property);
-            _selectedIndex = EditorGUI.Popup(position, propLabel, _selectedIndex, _optionLabels);
+            _selectedIndices[propertyPath] = EditorGUI.Popup(position, propLabel, _selectedIndices[propertyPath], _optionLabels[propertyPath]);
 
             if (EditorGUI.EndChangeCheck())
             {
-                storedProperty.stringValue = _selectedIndex < _methods.Length ? _methods[_selectedIndex].Name : "<empty>";
+                storedProperty.stringValue = _selectedIndices[propertyPath] < _methods[propertyPath].Length ? _methods[propertyPath][_selectedIndices[propertyPath]].Name : "<empty>";
             }
             EditorGUI.EndProperty();
         }
 
-        private void Initialize(SerializedProperty property, SerializedProperty stored)
+        private void Initialize(SerializedProperty property, SerializedProperty stored, string propertyPath)
         {
             var typeProperty = property.FindPropertyRelative("_type");
             var type = Type.GetType(typeProperty.stringValue);
 
             if (type == null)
             {
-                _optionLabels = new GUIContent[0];
-                _methods = new MethodInfo[0];
+                _optionLabels[propertyPath] = new GUIContent[0];
+                _methods[propertyPath] = new MethodInfo[0];
 
                 return;
             }
 
-            _methods = type.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance);
+            _methods[propertyPath] = type.GetMethods(BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance);
 
-            if (_methods.Length == 0)
+            if (_methods[propertyPath].Length == 0)
             {
-                _optionLabels = new[] { new GUIContent($"No methods from {type.Name} found.") };
+                _optionLabels[propertyPath] = new[] { new GUIContent($"No methods from {type.Name} found.") };
                 return;
             }
 
-            _optionLabels = new GUIContent[_methods.Length + 1];
-            for (int i = 0; i < _methods.Length; i++)
+            _optionLabels[propertyPath] = new GUIContent[_methods[propertyPath].Length + 1];
+            for (int i = 0; i < _methods[propertyPath].Length; i++)
             {
-                _optionLabels[i] = new GUIContent(_methods[i].Name);
+                _optionLabels[propertyPath][i] = new GUIContent(_methods[propertyPath][i].Name);
             }
-            _optionLabels[_methods.Length] = new GUIContent("<empty>");
+            _optionLabels[propertyPath][_methods[propertyPath].Length] = new GUIContent("<empty>");
 
-            UpdateIndex(stored);
+            UpdateIndex(stored, propertyPath);
         }
 
-        private void UpdateIndex(SerializedProperty stored)
+        private void UpdateIndex(SerializedProperty stored, string propertyPath)
         {
             string methodName = stored.stringValue;
 
-            for (int i = 0; i < _methods.Length; i++)
+            for (int i = 0; i < _methods[propertyPath].Length; i++)
             {
-                if (_methods[i].Name == methodName)
+                if (_methods[propertyPath][i].Name == methodName)
                 {
-                    _selectedIndex = i;
+                    _selectedIndices[propertyPath] = i;
                     return;
                 }
             }
 
-            _selectedIndex = _methods.Length;
+            _selectedIndices[propertyPath] = _methods[propertyPath].Length;
             stored.stringValue = "<empty>";
         }
     }
