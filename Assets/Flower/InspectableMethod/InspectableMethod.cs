@@ -36,10 +36,22 @@ namespace Flower
 
         public void OnAfterDeserialize()
         {
-            if (!string.IsNullOrEmpty(_methodName) && _methodName != "<empty>")
+            if (Validate())
             {
-                Info = Type.GetType(_type).GetMethod(_methodName);
+                try
+                {
+                    Info = Type.GetType(_type).GetMethod(_methodName);
+                }
+                catch (Exception)
+                {
+                    _methodName = "<empty>";
+                }
             }
+        }
+
+        public bool Validate()
+        {
+            return !string.IsNullOrEmpty(_methodName) && _methodName != "<empty>";
         }
     }
 }

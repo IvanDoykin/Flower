@@ -25,6 +25,11 @@ namespace Flower
             set { _containerId = value; }
         }
 
+        public bool Validate()
+        {
+            return ActionId != -1;
+        }
+
         public void OnAfterDeserialize()
         {
         }

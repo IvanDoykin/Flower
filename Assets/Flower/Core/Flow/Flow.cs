@@ -15,7 +15,8 @@ namespace Flower
 
         internal bool Validate()
         {
-            return InputClass != null && InputEvent != null && OutputClass != null && OutputMethod != null;
+            return InputClass != null && InputEvent != null && OutputClass != null && OutputMethod != null
+                && InputClass.Validate() && InputEvent.Validate() && OutputClass.Validate() && OutputMethod.Validate();
         }
     }
 }

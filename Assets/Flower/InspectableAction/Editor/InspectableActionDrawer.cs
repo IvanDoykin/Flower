@@ -49,6 +49,11 @@ namespace Flower
             EditorGUI.BeginChangeCheck();
 
             var propLabel = EditorGUI.BeginProperty(position, label, property);
+            if (string.IsNullOrEmpty(typeProperty.stringValue))
+            {
+                EditorGUI.EndProperty();
+                return;
+            }
             _selectedIndex = EditorGUI.Popup(position, propLabel, _selectedIndex, _optionLabels);
 
             if (EditorGUI.EndChangeCheck())

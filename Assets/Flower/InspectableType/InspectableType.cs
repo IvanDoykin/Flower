@@ -33,13 +33,19 @@ namespace Flower
 
         public void OnAfterDeserialize()
         {
-            if (string.IsNullOrEmpty(qualifiedName) || qualifiedName == "null")
+            if (Validate())
+            {
+                StoredType = Type.GetType(qualifiedName);
+            }
+            else
             {
                 StoredType = null;
-                return;
             }
+        }
 
-            StoredType = Type.GetType(qualifiedName);
+        public bool Validate()
+        {
+            return !string.IsNullOrEmpty(qualifiedName) && qualifiedName != "null";
         }
 
         public static implicit operator Type(InspectableType<T> t) => t.StoredType;

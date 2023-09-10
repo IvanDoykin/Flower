@@ -15,7 +15,7 @@ namespace Flower
         private Dictionary<int, Container> _containers = new Dictionary<int, Container>();
         private int _containerLastId = 0;
 
-        public ContainerBinder() 
+        public ContainerBinder()
         {
             if (_instance != null)
             {
@@ -87,12 +87,24 @@ namespace Flower
 
             _containerLastId++;
 
+            List<Flow> removedFlows = new List<Flow>();
             foreach (var flow in container.Flows)
             {
-                if (flow != null && flow.Validate())
+                if (flow != null)
                 {
-                    LinkFlow(flow, container);
+                    if (ValidateFlow(flow, container))
+                    {
+                        LinkFlow(flow, container);
+                    }
+                    else
+                    {
+                        removedFlows.Add(flow);
+                    }
                 }
+            }
+            foreach (var flow in removedFlows)
+            {
+                container.Flows.Remove(flow);
             }
 
             Debug.LogError("Containers = " + _containers.Count);
@@ -100,6 +112,11 @@ namespace Flower
 
         private bool ValidateFlow(Flow checkFlow, Container container)
         {
+            if (!checkFlow.Validate())
+            {
+                return false;
+            }
+
             foreach (var flow in container.Flows)
             {
                 if (flow == checkFlow)
@@ -109,7 +126,6 @@ namespace Flower
 
                 if (checkFlow.InputClass.GetType() == flow.InputClass.GetType() && checkFlow.InputEvent == flow.InputEvent)
                 {
-                    container.Flows.Remove(flow);
                     return false;
                 }
             }
@@ -119,10 +135,6 @@ namespace Flower
 
         private void LinkFlow(Flow flow, Container container)
         {
-            if (!ValidateFlow(flow, container))
-            {
-                throw new Exception("False validate");
-            }
             List<Entity> outputEntities = new List<Entity>();
             List<Entity> inputEntities = new List<Entity>();
 
