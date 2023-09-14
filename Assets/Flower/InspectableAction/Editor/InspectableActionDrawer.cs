@@ -17,7 +17,16 @@ namespace Flower
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            string newType = ContainerBinder.Instance.GetContainer(property.FindPropertyRelative("_containerId").intValue).Flows[property.FindPropertyRelative("_flowIndex").intValue].InputClass?.ToString();
+            int containerId = property.FindPropertyRelative("_containerId").intValue;
+            Container container = ContainerBinder.Instance.GetContainer(containerId);
+            int flowIndex = property.FindPropertyRelative("_flowIndex").intValue;
+
+            if (flowIndex < 0 || flowIndex >= container.Flows.Count)
+            {
+                return;
+            }
+
+            string newType = container.Flows[flowIndex].InputClass?.ToString();
 
             var typeProperty = property.FindPropertyRelative("_type");
             typeProperty.stringValue = newType;
@@ -81,6 +90,7 @@ namespace Flower
             if (_events.Length == 0)
             {
                 _optionLabels = new[] { new GUIContent($"No events from {type.Name} found.") };
+                stored.intValue = -1;
                 return;
             }
 

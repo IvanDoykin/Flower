@@ -16,9 +16,17 @@ namespace Flower
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            string propertyPath = property.propertyPath;
+            int containerId = property.FindPropertyRelative("_containerId").intValue;
+            Container container = ContainerBinder.Instance.GetContainer(containerId);
+            int flowIndex = property.FindPropertyRelative("_flowIndex").intValue;
 
-            string newType = ContainerBinder.Instance.GetContainer(property.FindPropertyRelative("_containerId").intValue).Flows[property.FindPropertyRelative("_flowIndex").intValue].OutputClass?.ToString();
+            if (flowIndex < 0 || flowIndex >= container.Flows.Count)
+            {
+                return;
+            }
+            string newType = container.Flows[flowIndex].OutputClass?.ToString();
+
+            string propertyPath = property.propertyPath;
             var typeProperty = property.FindPropertyRelative("_type");
             typeProperty.stringValue = newType;
 
