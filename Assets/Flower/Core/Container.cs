@@ -8,7 +8,10 @@ namespace Flower
     [ExecuteAlways]
     public class Container : MonoBehaviour
     {
-        public Flow DefaultFlow = Flow.Default;
+        [SerializeField]
+        internal Flow DefaultFlow = Flow.Default;
+        [SerializeField]
+        internal Entity DefaultEntity = null;
 
         public List<Flow> Flows = new List<Flow>();
         public List<Entity> Entities = new List<Entity>();

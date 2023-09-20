@@ -18,6 +18,8 @@ namespace Flower
         private SerializedProperty _flowListProperty;
         private SerializedProperty _entityListProperty;
 
+        private Entity _entity;
+
         private void OnEnable()
         {
             _flowListProperty = serializedObject.FindProperty(_flowListName);
@@ -101,7 +103,15 @@ namespace Flower
                 property.arraySize++;
             }
 
-            EditorGUILayout.PropertyField(serializedObject.FindProperty(_defaultFlow), GUIContent.none);
+            if (field == _flowFieldName)
+            {
+                EditorGUILayout.PropertyField(serializedObject.FindProperty(_defaultFlow), GUIContent.none);
+            }
+            else if (field == _entityFieldName)
+            {
+                _entity = (Entity)EditorGUILayout.ObjectField("New entity", _entity, typeof(Entity), true);
+            }
+
             serializedObject.ApplyModifiedProperties();
 
             EditorGUILayout.Space(10f);

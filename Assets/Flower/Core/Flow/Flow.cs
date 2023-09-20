@@ -19,11 +19,16 @@ namespace Flower
         private Flow()
         {
             InputClass = InspectableType<IEntityInterface>.Default;
+            OutputClass = InspectableType<IEntityInterface>.Default;
+
             InputEvent = InspectableAction.Default;
             InputEvent.ActionId = 0;
             InputEvent.ContainerId = 0;
             InputEvent.FlowIndex = 0;
-            OutputClass = InspectableType<IEntityInterface>.Default;
+
+            OutputMethod = InspectableMethod.Default;
+            OutputMethod.ContainerId = 0;
+            OutputMethod.FlowIndex = 0;
         }
 
         public InspectableType<IEntityInterface> InputClass;

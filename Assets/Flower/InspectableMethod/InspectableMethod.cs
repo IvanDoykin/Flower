@@ -12,6 +12,18 @@ namespace Flower
         [SerializeField] private int _flowIndex;
         [SerializeField] private int _containerId = -1;
 
+        public static InspectableMethod Default
+        {
+            get
+            {
+                return new InspectableMethod();
+            }
+        }
+
+        private InspectableMethod()
+        {
+        }
+
         internal int FlowIndex
         {
             get { return _flowIndex; }
