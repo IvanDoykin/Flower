@@ -13,6 +13,18 @@ namespace Flower
 
         [SerializeField] internal int ActionId = -1;
 
+        public static InspectableAction Default
+        {
+            get
+            {
+                return new InspectableAction();
+            }
+        }
+
+        private InspectableAction()
+        {
+        }
+
         internal int FlowIndex
         {
             get { return _flowIndex; }

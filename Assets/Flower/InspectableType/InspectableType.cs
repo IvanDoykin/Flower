@@ -11,6 +11,14 @@ namespace Flower
 
         internal Type StoredType { get; private set; }
 
+        public static InspectableType<T> Default
+        {
+            get
+            {
+                return new InspectableType<T>(typeof(Entity));
+            }
+        }
+
         public InspectableType(Type typeToStore)
         {
             StoredType = typeToStore;

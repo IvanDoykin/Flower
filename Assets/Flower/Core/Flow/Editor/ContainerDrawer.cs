@@ -7,6 +7,8 @@ namespace Flower
     [CustomEditor(typeof(Container))]
     public class ContainerDrawer : Editor
     {
+        private const string _defaultFlow = "DefaultFlow";
+
         private const string _flowFieldName = "Flow";
         private const string _flowListName = "Flows";
 
@@ -99,6 +101,7 @@ namespace Flower
                 property.arraySize++;
             }
 
+            EditorGUILayout.PropertyField(serializedObject.FindProperty(_defaultFlow), GUIContent.none);
             serializedObject.ApplyModifiedProperties();
 
             EditorGUILayout.Space(10f);
