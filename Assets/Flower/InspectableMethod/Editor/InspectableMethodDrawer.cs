@@ -20,11 +20,20 @@ namespace Flower
             Container container = ContainerBinder.Instance.GetContainer(containerId);
             int flowIndex = property.FindPropertyRelative("_flowIndex").intValue;
 
-            if (flowIndex < 0 || flowIndex >= container.Flows.Count)
+            if (flowIndex >= container.Flows.Count)
             {
                 return;
             }
-            string newType = container.Flows[flowIndex].OutputClass?.ToString();
+
+            string newType = "";
+            if (flowIndex == -1)
+            {
+                newType = container.DefaultFlow.OutputClass?.ToString();
+            }
+            else
+            {
+                newType = container.Flows[flowIndex].OutputClass?.ToString();
+            }
 
             string propertyPath = property.propertyPath;
             var typeProperty = property.FindPropertyRelative("_type");

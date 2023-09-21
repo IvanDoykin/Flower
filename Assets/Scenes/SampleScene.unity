@@ -152,14 +152,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee69bb212d2564443af20cf3e4900a6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Flows:
-  - InputClass:
+  DefaultFlow:
+    InputClass:
       baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       qualifiedName: IPlayer, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     InputEvent:
       _type: IPlayer
-      _flowIndex: 0
+      _flowIndex: -1
       _containerId: 0
       ActionId: 0
     OutputClass:
@@ -169,8 +169,10 @@ MonoBehaviour:
     OutputMethod:
       _methodName: ShowDamage
       _type: DamageUI
-      _flowIndex: 0
+      _flowIndex: -1
       _containerId: 0
+  DefaultEntity: {fileID: 0}
+  Flows: []
   Entities:
   - {fileID: 1446427742}
   - {fileID: 1480161634}

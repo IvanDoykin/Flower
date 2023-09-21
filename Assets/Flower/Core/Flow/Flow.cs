@@ -1,5 +1,6 @@
 using System;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using UnityEditor;
 using UnityEngine;
 
@@ -19,16 +20,25 @@ namespace Flower
         private Flow()
         {
             InputClass = InspectableType<IEntityInterface>.Default;
+            InputEvent = InspectableAction.Default;
             OutputClass = InspectableType<IEntityInterface>.Default;
+            OutputMethod = InspectableMethod.Default;
+        }
+
+        public Flow(InspectableType<IEntityInterface> inputClass, InspectableAction inputEvent, InspectableType<IEntityInterface> outputClass, InspectableMethod outputMethod)
+        {
+            InputClass = new InspectableType<IEntityInterface>(inputClass.StoredType);
 
             InputEvent = InspectableAction.Default;
-            InputEvent.ActionId = 0;
-            InputEvent.ContainerId = 0;
-            InputEvent.FlowIndex = 0;
+            InputEvent.FlowIndex = inputEvent.FlowIndex;
+            InputEvent.ActionId = inputEvent.ActionId;
+
+            OutputClass = new InspectableType<IEntityInterface>(outputClass.StoredType);
 
             OutputMethod = InspectableMethod.Default;
-            OutputMethod.ContainerId = 0;
-            OutputMethod.FlowIndex = 0;
+            OutputMethod.FlowIndex = outputMethod.FlowIndex;
+            OutputMethod.ContainerId = outputMethod.ContainerId;
+            OutputMethod = new InspectableMethod(outputMethod.Info);
         }
 
         public InspectableType<IEntityInterface> InputClass;

@@ -24,6 +24,11 @@ namespace Flower
         {
         }
 
+        public InspectableMethod(MethodInfo info)
+        {
+            Info = info;
+        }
+
         internal int FlowIndex
         {
             get { return _flowIndex; }

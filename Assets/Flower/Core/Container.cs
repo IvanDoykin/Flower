@@ -58,6 +58,10 @@ namespace Flower
                 Flows[i].OutputMethod.FlowIndex = i;
                 Flows[i].InputEvent.FlowIndex = i;
             }
+            DefaultFlow.InputEvent.ContainerId = Id;
+            DefaultFlow.OutputMethod.ContainerId = Id;
+            DefaultFlow.OutputMethod.FlowIndex = -1;
+            DefaultFlow.InputEvent.FlowIndex = -1;
         }
 #endif
 

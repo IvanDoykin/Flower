@@ -133,7 +133,7 @@ namespace Flower
             return true;
         }
 
-        private void LinkFlow(Flow flow, Container container)
+        public void LinkFlow(Flow flow, Container container)
         {
             List<Entity> outputEntities = new List<Entity>();
             List<Entity> inputEntities = new List<Entity>();

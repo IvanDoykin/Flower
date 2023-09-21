@@ -100,7 +100,22 @@ namespace Flower
 
             if (GUILayout.Button("Add new element"))
             {
-                property.arraySize++;
+                Container container = target as Container;
+                if (field == _flowFieldName)
+                {
+                    Flow newFlow = new Flow(container.DefaultFlow.InputClass,
+                        container.DefaultFlow.InputEvent,
+                        container.DefaultFlow.OutputClass,
+                        container.DefaultFlow.OutputMethod
+                    );
+
+                    container.Flows.Add(newFlow);
+                    ContainerBinder.Instance.LinkFlow(newFlow, container);
+                }
+                else if (field == _entityFieldName)
+                {
+                    container.AddEntity(_entity);
+                }
             }
 
             if (field == _flowFieldName)
