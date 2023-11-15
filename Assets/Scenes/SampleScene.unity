@@ -156,12 +156,12 @@ MonoBehaviour:
     InputClass:
       baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      qualifiedName: IPlayer, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      qualifiedName: Player, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     InputEvent:
-      _type: IPlayer
+      _type: Player
       _flowIndex: -1
       _containerId: 0
-      ActionId: 0
+      ActionId: -1
     OutputClass:
       baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -172,7 +172,43 @@ MonoBehaviour:
       _flowIndex: -1
       _containerId: 0
   DefaultEntity: {fileID: 0}
-  Flows: []
+  Flows:
+  - InputClass:
+      baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      qualifiedName: IPlayer, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    InputEvent:
+      _type: IPlayer
+      _flowIndex: 0
+      _containerId: 0
+      ActionId: 0
+    OutputClass:
+      baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      qualifiedName: DamageUI, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    OutputMethod:
+      _methodName: ShowDamage
+      _type: DamageUI
+      _flowIndex: 0
+      _containerId: 0
+  - InputClass:
+      baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      qualifiedName: CrazyPlayer, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    InputEvent:
+      _type: CrazyPlayer
+      _flowIndex: 1
+      _containerId: 0
+      ActionId: 0
+    OutputClass:
+      baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      qualifiedName: UI, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    OutputMethod:
+      _methodName: ShowDebugInfo
+      _type: UI
+      _flowIndex: 1
+      _containerId: 0
   Entities:
   - {fileID: 1446427742}
   - {fileID: 1480161634}
@@ -315,7 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f69aabf419d13ef4790e07ed311818aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 352
+  _damage: 0
 --- !u!4 &1480161635
 Transform:
   m_ObjectHideFlags: 0

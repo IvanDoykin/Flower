@@ -11,6 +11,8 @@ namespace Flower
         {
             ShowInfo();
             FilterFields();
+            DeleteOtherComponents();
+            BlockAddComponentButton();
         }
 
         private void ShowInfo()
@@ -23,10 +25,26 @@ namespace Flower
 
             GUILayout.BeginVertical("box");
             GUILayout.Label("Entity is an indivisible unit in code design.", labelStyle);
-            GUILayout.Label("You should know that using fields contained Entity is prohibited.", labelStyle);
+            GUILayout.Label("You should know that using other components with Entity is prohibited.", labelStyle);
             GUILayout.EndVertical();
 
             EditorGUILayout.Space(10f);
+        }
+
+        private void DeleteOtherComponents()
+        {
+            Entity entity = (Entity)target;
+            GameObject gameObject = entity.gameObject;
+
+            MonoBehaviour[] components = gameObject.GetComponents<MonoBehaviour>();
+            foreach (var component in components)
+            {
+                if (component != entity)
+                {
+                    Debug.LogWarning("Other components are prohibited.");
+                    DestroyImmediate(component);
+                }
+            }
         }
 
         private void FilterFields()
@@ -67,6 +85,11 @@ namespace Flower
             }
 
             serializedObject.ApplyModifiedProperties();
+        }
+
+        private void BlockAddComponentButton()
+        {
+            EditorGUILayout.Space(float.MaxValue);
         }
 
         private System.Type GetFieldType(SerializedProperty property)

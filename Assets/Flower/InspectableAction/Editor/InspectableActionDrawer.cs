@@ -18,6 +18,11 @@ namespace Flower
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             int containerId = property.FindPropertyRelative("_containerId").intValue;
+            if (containerId == -1)
+            {
+                return;
+            }
+
             Container container = ContainerBinder.Instance.GetContainer(containerId);
             int flowIndex = property.FindPropertyRelative("_flowIndex").intValue;
 

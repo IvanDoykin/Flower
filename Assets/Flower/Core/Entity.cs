@@ -65,8 +65,12 @@ namespace Flower
         {
             if (_externalActions.TryGetValue((message.Method.Name, messageHash), out Action<object[]> checkedAction))
             {
-                Debug.LogError("This message has already linked.");
+                Debug.LogError("fuck u");
                 return;
+            }
+            else
+            {
+                Debug.Log("Method: " + message.Method.Name + " = " + messageHash);
             }
 
             var action = new Action<object[]>(message);

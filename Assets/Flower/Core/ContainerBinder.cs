@@ -51,11 +51,6 @@ namespace Flower
             }
         }
 
-        private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
-        {
-            Debug.LogError("Loaded");
-        }
-
         private void Dispose()
         {
             Container.HasCreated -= AddContainer;
@@ -94,7 +89,10 @@ namespace Flower
                 {
                     if (ValidateFlow(flow, container))
                     {
-                        LinkFlow(flow, container);
+                        if (CheckFlowOnDifference(flow, container))
+                        {
+                            LinkFlow(flow, container);
+                        }
                     }
                     else
                     {
@@ -107,10 +105,10 @@ namespace Flower
                 container.Flows.Remove(flow);
             }
 
-            Debug.LogError("Containers = " + _containers.Count);
+            Debug.LogError("Containers: " + _containers.Count);
         }
 
-        private bool ValidateFlow(Flow checkFlow, Container container)
+        public bool ValidateFlow(Flow checkFlow, Container container)
         {
             if (!checkFlow.Validate())
             {
@@ -125,6 +123,26 @@ namespace Flower
                 }
 
                 if (checkFlow.InputClass.GetType() == flow.InputClass.GetType() && checkFlow.InputEvent == flow.InputEvent)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public bool CheckFlowOnDifference(Flow checkingFlow, Container container)
+        {
+            foreach (var flow in container.Flows)
+            {
+                bool isSimilarInputClasses = flow.InputClass.StoredType.IsAssignableFrom(checkingFlow.InputClass.StoredType) ||
+                    checkingFlow.InputClass.StoredType.IsAssignableFrom(flow.InputClass.StoredType);
+                bool isSimilarOutputClasses = flow.OutputClass.StoredType.IsAssignableFrom(checkingFlow.OutputClass.StoredType) ||
+                    checkingFlow.OutputClass.StoredType.IsAssignableFrom(flow.OutputClass.StoredType);
+                bool isEqualEvents = flow.InputEvent.ActionId == checkingFlow.InputEvent.ActionId;
+                bool isEqualMethods = flow.OutputMethod.Info.Name == checkingFlow.OutputMethod.Info.Name;
+                
+                if (isSimilarInputClasses && isSimilarOutputClasses && isEqualEvents && isEqualMethods)
                 {
                     return false;
                 }

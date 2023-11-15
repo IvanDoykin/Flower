@@ -19,9 +19,9 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Inspector
   m_RootView: {fileID: 6}
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -227,7 +227,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 342}
   m_MaxSize: {x: 8003, y: 8042}
   vertical: 1
-  controlID: 36
+  controlID: 20
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -252,7 +252,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 37
+  controlID: 21
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -300,13 +300,13 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 892
+    x: 1066
     y: 73
-    width: 1027
+    width: 853
     height: 926
   m_ViewDataDictionary: {fileID: 0}
   m_Spl:
-    ID: 147
+    ID: 867
     splitterInitialOffset: 279
     currentActiveSplitter: -1
     realSizes:
@@ -391,9 +391,9 @@ MonoBehaviour:
       uniqueId: '[COP][suite]'
       name: COP
       fullName: COP
-      resultStatus: 2
-      duration: 0.2356889
-      messages: One or more child tests had errors
+      resultStatus: 1
+      duration: 13.634128
+      messages: 
       output: 
       stacktrace: 
       notRunnable: 0
@@ -407,9 +407,9 @@ MonoBehaviour:
       uniqueId: '[Tests][C:/Users/ffcon/Flower/Library/ScriptAssemblies/Tests.dll][suite]'
       name: Tests.dll
       fullName: C:/Users/ffcon/Flower/Library/ScriptAssemblies/Tests.dll
-      resultStatus: 2
-      duration: 0.171842
-      messages: One or more child tests had errors
+      resultStatus: 1
+      duration: 13.576314
+      messages: 
       output: 
       stacktrace: 
       notRunnable: 0
@@ -420,12 +420,12 @@ MonoBehaviour:
       parentId: 1000
       parentUniqueId: '[COP][suite]'
     - id: 1001
-      uniqueId: Tests.dll/[Tests][CodeConventionChecker][suite]
-      name: CodeConventionChecker
-      fullName: CodeConventionChecker
-      resultStatus: 2
-      duration: 0.1697411
-      messages: One or more child tests had errors
+      uniqueId: Tests.dll/[Tests][CodeChecker][suite]
+      name: CodeChecker
+      fullName: CodeChecker
+      resultStatus: 1
+      duration: 13.574017
+      messages: 
       output: 
       stacktrace: 
       notRunnable: 0
@@ -433,58 +433,66 @@ MonoBehaviour:
       description: 
       isSuite: 1
       categories: []
-      parentId: 1003
+      parentId: 1005
       parentUniqueId: '[Tests][C:/Users/ffcon/Flower/Library/ScriptAssemblies/Tests.dll][suite]'
-    - id: 1002
-      uniqueId: Tests.dll/CodeConventionChecker/[Tests][CodeConventionChecker.CheckOnRule]
-      name: CheckOnRule
-      fullName: CodeConventionChecker.CheckOnRule
-      resultStatus: 2
-      duration: 0.1478961
-      messages: 'System.TypeLoadException : Could not load file or assembly ''Microsoft.CodeAnalysis.CSharp,
-        Version=4.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'' or one
-        of its dependencies. assembly:Microsoft.CodeAnalysis.CSharp, Version=4.7.0.0,
-        Culture=neutral, PublicKeyToken=31bf3856ad364e35 type:<unknown type> member:(null)
-        signature:<none>'
+    - id: 1004
+      uniqueId: Tests.dll/CodeChecker/[Tests][CodeChecker.TestCodeWithRule][suite]
+      name: TestCodeWithRule
+      fullName: CodeChecker.TestCodeWithRule
+      resultStatus: 1
+      duration: 13.570415
+      messages: 
       output: 
-      stacktrace: "  at ConventionCodeChecker.CodeChecker.Check (System.String ruleName)
-        [0x00000] in <4c044b9120004fd1b98c6dcf73014e18>:0 \r\n  at CodeConventionChecker.CheckOnRule
-        () [0x00011] in C:\\Users\\ffcon\\Flower\\Assets\\Tests\\CodeConventionChecker.cs:13
-        \r\n  at (wrapper managed-to-native) System.Reflection.MonoMethod.InternalInvoke(System.Reflection.MonoMethod,object,object[],System.Exception&)\r\n 
-        at System.Reflection.MonoMethod.Invoke (System.Object obj, System.Reflection.BindingFlags
-        invokeAttr, System.Reflection.Binder binder, System.Object[] parameters,
-        System.Globalization.CultureInfo culture) [0x00032] in <695d1cc93cca45069c528c15c9fdd749>:0 "
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 1
+      categories: []
+      parentId: 1001
+      parentUniqueId: Tests.dll/[Tests][CodeChecker][suite]
+    - id: 1002
+      uniqueId: Tests.dll/CodeChecker/TestCodeWithRule/[Tests][CodeChecker.TestCodeWithRule("ConventionCodeChecker.IfWalker")]
+      name: TestCodeWithRule("ConventionCodeChecker.IfWalker")
+      fullName: CodeChecker.TestCodeWithRule("ConventionCodeChecker.IfWalker")
+      resultStatus: 1
+      duration: 7.3390417
+      messages: 
+      output: 
+      stacktrace: 
       notRunnable: 0
       ignoredOrSkipped: 0
       description: 
       isSuite: 0
       categories:
       - Uncategorized
-      parentId: 1001
-      parentUniqueId: Tests.dll/[Tests][CodeConventionChecker][suite]
-    m_ResultText: "CheckOnRule (0,148s)\n---\nSystem.TypeLoadException : Could not
-      load file or assembly 'Microsoft.CodeAnalysis.CSharp, Version=4.7.0.0, Culture=neutral,
-      PublicKeyToken=31bf3856ad364e35' or one of its dependencies. assembly:Microsoft.CodeAnalysis.CSharp,
-      Version=4.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 type:<unknown
-      type> member:(null) signature:<none>\n---\nat ConventionCodeChecker.CodeChecker.Check
-      (System.String ruleName) [0x00000] in <4c044b9120004fd1b98c6dcf73014e18>:0
-      \r\n  at CodeConventionChecker.CheckOnRule () [0x00011] in C:\\Users\\ffcon\\Flower\\Assets\\Tests\\CodeConventionChecker.cs:13
-      \r\n  at (wrapper managed-to-native) System.Reflection.MonoMethod.InternalInvoke(System.Reflection.MonoMethod,object,object[],System.Exception&)\r\n 
-      at System.Reflection.MonoMethod.Invoke (System.Object obj, System.Reflection.BindingFlags
-      invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo
-      culture) [0x00032] in <695d1cc93cca45069c528c15c9fdd749>:0"
-    m_ResultStacktrace: "  at ConventionCodeChecker.CodeChecker.Check (System.String
-      ruleName) [0x00000] in <4c044b9120004fd1b98c6dcf73014e18>:0 \r\n  at CodeConventionChecker.CheckOnRule
-      () [0x00011] in C:\\Users\\ffcon\\Flower\\Assets\\Tests\\CodeConventionChecker.cs:13
-      \r\n  at (wrapper managed-to-native) System.Reflection.MonoMethod.InternalInvoke(System.Reflection.MonoMethod,object,object[],System.Exception&)\r\n 
-      at System.Reflection.MonoMethod.Invoke (System.Object obj, System.Reflection.BindingFlags
-      invokeAttr, System.Reflection.Binder binder, System.Object[] parameters, System.Globalization.CultureInfo
-      culture) [0x00032] in <695d1cc93cca45069c528c15c9fdd749>:0 "
+      parentId: 1004
+      parentUniqueId: Tests.dll/CodeChecker/[Tests][CodeChecker.TestCodeWithRule][suite]
+    - id: 1003
+      uniqueId: Tests.dll/CodeChecker/TestCodeWithRule/[Tests][CodeChecker.TestCodeWithRule("ConventionCodeChecker.NoneModificatorWalker")]
+      name: TestCodeWithRule("ConventionCodeChecker.NoneModificatorWalker")
+      fullName: CodeChecker.TestCodeWithRule("ConventionCodeChecker.NoneModificatorWalker")
+      resultStatus: 1
+      duration: 6.2123766
+      messages: 
+      output: 
+      stacktrace: 
+      notRunnable: 0
+      ignoredOrSkipped: 0
+      description: 
+      isSuite: 0
+      categories:
+      - Uncategorized
+      parentId: 1004
+      parentUniqueId: Tests.dll/CodeChecker/[Tests][CodeChecker.TestCodeWithRule][suite]
+    m_ResultText: TestCodeWithRule("ConventionCodeChecker.NoneModificatorWalker")
+      (6,212s)
+    m_ResultStacktrace: 
     m_TestListState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 2d5f4fbd
-      m_LastClickedID: -1118871763
-      m_ExpandedIDs: c8af6a897e2617b1656060b7a2a0783222524b3affffff7f
+      m_SelectedIDs: 68096ec8
+      m_LastClickedID: -932312728
+      m_ExpandedIDs: c8af6a897e2617b1656060b7a2a07832a15ca83222524b3ad333fe62ffffff7f
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -585,22 +593,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Flower/Core/Flow/Editor
+    - Assets/Flower
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/Flower/Core/Flow/Editor
+  - Assets/Flower
   m_LastFoldersGridSize: 96
   m_LastProjectPath: C:\Users\ffcon\Flower
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: d63d0000
-    m_LastClickedID: 15830
-    m_ExpandedIDs: 00000000ba3d0000
+    m_SelectedIDs: cc3e0000
+    m_LastClickedID: 16076
+    m_ExpandedIDs: 00000000ba3d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -653,9 +661,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 6c3d0000
-    m_LastClickedInstanceID: 15724
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: 623d0000
+    m_LastClickedInstanceID: 15714
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -714,7 +722,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 623d0000
       m_LastClickedID: 15714
-      m_ExpandedIDs: 6efbffff623d0000
+      m_ExpandedIDs: 6efbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -730,7 +738,7 @@ MonoBehaviour:
         m_IsRenaming: 0
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
-        m_ClientGUIView: {fileID: 11}
+        m_ClientGUIView: {fileID: 4}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -893,7 +901,7 @@ MonoBehaviour:
   m_UseMipMap: 0
   m_VSyncEnabled: 0
   m_Gizmos: 0
-  m_Stats: 0
+  m_Stats: 1
   m_SelectedSizes: 00000000000000000000000000000000000000000000000000000000000000000000000000000000
   m_ZoomArea:
     m_HRangeLocked: 0

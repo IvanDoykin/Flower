@@ -109,13 +109,17 @@ namespace Flower
                         container.DefaultFlow.OutputMethod
                     );
 
-                    container.Flows.Add(newFlow);
-                    ContainerBinder.Instance.LinkFlow(newFlow, container);
+                    if (ContainerBinder.Instance.ValidateFlow(newFlow, container) && ContainerBinder.Instance.CheckFlowOnDifference(newFlow, container))
+                    {
+                        container.Flows.Add(newFlow);
+                        ContainerBinder.Instance.LinkFlow(newFlow, container);
+                    }
                 }
                 else if (field == _entityFieldName)
                 {
                     container.AddEntity(_entity);
                 }
+                EditorUtility.SetDirty(target);
             }
 
             if (field == _flowFieldName)
