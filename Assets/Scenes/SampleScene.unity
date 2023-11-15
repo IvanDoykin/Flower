@@ -157,58 +157,48 @@ MonoBehaviour:
       baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       qualifiedName: Player, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      IsEditable: 1
     InputEvent:
       _type: Player
       _flowIndex: -1
-      _containerId: 0
-      ActionId: -1
+      _containerId: 3
+      ActionId: 0
+      IsEditable: 1
     OutputClass:
       baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       qualifiedName: DamageUI, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      IsEditable: 1
     OutputMethod:
       _methodName: ShowDamage
       _type: DamageUI
       _flowIndex: -1
-      _containerId: 0
+      _containerId: 3
+      IsEditable: 1
   DefaultEntity: {fileID: 0}
   Flows:
   - InputClass:
       baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      qualifiedName: IPlayer, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      qualifiedName: Player, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      IsEditable: 0
     InputEvent:
-      _type: IPlayer
+      _type: Player
       _flowIndex: 0
-      _containerId: 0
+      _containerId: 3
       ActionId: 0
+      IsEditable: 0
     OutputClass:
       baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       qualifiedName: DamageUI, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      IsEditable: 0
     OutputMethod:
       _methodName: ShowDamage
       _type: DamageUI
       _flowIndex: 0
-      _containerId: 0
-  - InputClass:
-      baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      qualifiedName: CrazyPlayer, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    InputEvent:
-      _type: CrazyPlayer
-      _flowIndex: 1
-      _containerId: 0
-      ActionId: 0
-    OutputClass:
-      baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
-        PublicKeyToken=null
-      qualifiedName: UI, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    OutputMethod:
-      _methodName: ShowDebugInfo
-      _type: UI
-      _flowIndex: 1
-      _containerId: 0
+      _containerId: 3
+      IsEditable: 1
   Entities:
   - {fileID: 1446427742}
   - {fileID: 1480161634}

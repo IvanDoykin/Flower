@@ -13,6 +13,8 @@ namespace Flower
 
         [SerializeField] internal int ActionId = -1;
 
+        [SerializeField] public bool IsEditable = true;
+
         public static InspectableAction Default
         {
             get

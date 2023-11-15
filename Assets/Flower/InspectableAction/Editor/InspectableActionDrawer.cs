@@ -78,7 +78,7 @@ namespace Flower
             }
             _selectedIndex = EditorGUI.Popup(position, propLabel, _selectedIndex, _optionLabels);
 
-            if (EditorGUI.EndChangeCheck())
+            if (EditorGUI.EndChangeCheck() && property.FindPropertyRelative("IsEditable").boolValue)
             {
                 storedProperty.intValue = _selectedIndex < _events.Length ? _selectedIndex : -1;
             }

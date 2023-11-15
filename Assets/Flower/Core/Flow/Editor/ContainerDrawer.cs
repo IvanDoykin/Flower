@@ -93,6 +93,9 @@ namespace Flower
                 EditorGUILayout.PropertyField(property.GetArrayElementAtIndex(i), GUIContent.none);
                 if (GUILayout.Button("Remove", GUILayout.Width(60)))
                 {
+                    Container container = target as Container;
+                    ContainerBinder.Instance.UnlinkFlow(container.Flows[i], container);
+
                     property.DeleteArrayElementAtIndex(i);
                 }
                 EditorGUILayout.EndHorizontal();
@@ -109,7 +112,9 @@ namespace Flower
                         container.DefaultFlow.OutputMethod
                     );
 
-                    if (ContainerBinder.Instance.ValidateFlow(newFlow, container) && ContainerBinder.Instance.CheckFlowOnDifference(newFlow, container))
+                    Debug.Log(ContainerBinder.Instance.ValidateFlow(container.DefaultFlow, container));
+                    Debug.Log(ContainerBinder.Instance.CheckFlowOnDifference(container.DefaultFlow, container));
+                    if (ContainerBinder.Instance.ValidateFlow(container.DefaultFlow, container) && ContainerBinder.Instance.CheckFlowOnDifference(container.DefaultFlow, container))
                     {
                         container.Flows.Add(newFlow);
                         ContainerBinder.Instance.LinkFlow(newFlow, container);

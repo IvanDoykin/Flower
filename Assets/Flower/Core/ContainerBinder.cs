@@ -110,38 +110,25 @@ namespace Flower
 
         public bool ValidateFlow(Flow checkFlow, Container container)
         {
-            if (!checkFlow.Validate())
-            {
-                return false;
-            }
-
-            foreach (var flow in container.Flows)
-            {
-                if (flow == checkFlow)
-                {
-                    continue;
-                }
-
-                if (checkFlow.InputClass.GetType() == flow.InputClass.GetType() && checkFlow.InputEvent == flow.InputEvent)
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return checkFlow.Validate();
         }
 
         public bool CheckFlowOnDifference(Flow checkingFlow, Container container)
         {
             foreach (var flow in container.Flows)
             {
+                if (flow == checkingFlow)
+                {
+                    continue;
+                }
+
                 bool isSimilarInputClasses = flow.InputClass.StoredType.IsAssignableFrom(checkingFlow.InputClass.StoredType) ||
                     checkingFlow.InputClass.StoredType.IsAssignableFrom(flow.InputClass.StoredType);
                 bool isSimilarOutputClasses = flow.OutputClass.StoredType.IsAssignableFrom(checkingFlow.OutputClass.StoredType) ||
                     checkingFlow.OutputClass.StoredType.IsAssignableFrom(flow.OutputClass.StoredType);
                 bool isEqualEvents = flow.InputEvent.ActionId == checkingFlow.InputEvent.ActionId;
                 bool isEqualMethods = flow.OutputMethod.Info.Name == checkingFlow.OutputMethod.Info.Name;
-                
+
                 if (isSimilarInputClasses && isSimilarOutputClasses && isEqualEvents && isEqualMethods)
                 {
                     return false;

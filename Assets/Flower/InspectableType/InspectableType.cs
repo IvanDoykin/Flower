@@ -8,6 +8,7 @@ namespace Flower
     {
         [SerializeField] string baseTypeName;
         [SerializeField] string qualifiedName;
+        [SerializeField] public bool IsEditable = true;
 
         internal Type StoredType { get; private set; }
 

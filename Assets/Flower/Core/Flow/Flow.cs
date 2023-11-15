@@ -28,14 +28,18 @@ namespace Flower
         public Flow(InspectableType<IEntityInterface> inputClass, InspectableAction inputEvent, InspectableType<IEntityInterface> outputClass, InspectableMethod outputMethod)
         {
             InputClass = new InspectableType<IEntityInterface>(inputClass.StoredType);
+            InputClass.IsEditable = false;
 
             InputEvent = InspectableAction.Default;
+            InputEvent.IsEditable = false;
             InputEvent.FlowIndex = inputEvent.FlowIndex;
             InputEvent.ActionId = inputEvent.ActionId;
 
             OutputClass = new InspectableType<IEntityInterface>(outputClass.StoredType);
+            OutputClass.IsEditable = false;
 
             OutputMethod = InspectableMethod.Default;
+            OutputMethod.IsEditable = false;
             OutputMethod.FlowIndex = outputMethod.FlowIndex;
             OutputMethod.ContainerId = outputMethod.ContainerId;
             OutputMethod = new InspectableMethod(outputMethod.Info);

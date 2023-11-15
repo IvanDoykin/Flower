@@ -64,7 +64,7 @@ namespace Flower
             }
             _selectedIndices[propertyPath] = EditorGUI.Popup(position, propLabel, _selectedIndices[propertyPath], _optionLabels[propertyPath]);
 
-            if (EditorGUI.EndChangeCheck())
+            if (EditorGUI.EndChangeCheck() && property.FindPropertyRelative("IsEditable").boolValue)
             {
                 storedProperty.stringValue = _selectedIndices[propertyPath] < _methods[propertyPath].Length ? _methods[propertyPath][_selectedIndices[propertyPath]].Name : "<empty>";
             }

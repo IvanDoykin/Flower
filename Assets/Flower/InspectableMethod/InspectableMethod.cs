@@ -12,6 +12,8 @@ namespace Flower
         [SerializeField] private int _flowIndex;
         [SerializeField] private int _containerId = -1;
 
+        [SerializeField] public bool IsEditable = true;
+
         public static InspectableMethod Default
         {
             get
