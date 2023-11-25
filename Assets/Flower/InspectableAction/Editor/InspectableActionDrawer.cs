@@ -17,7 +17,29 @@ namespace Flower
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-            string newType = GameObject.FindObjectOfType<ContainerBinder>().GetContainer(property.FindPropertyRelative("_containerId").intValue).Flows[property.FindPropertyRelative("_flowIndex").intValue].InputClass?.ToString();
+            int containerId = property.FindPropertyRelative("_containerId").intValue;
+            if (containerId == -1)
+            {
+                return;
+            }
+
+            Container container = ContainerBinder.Instance.GetContainer(containerId);
+            int flowIndex = property.FindPropertyRelative("_flowIndex").intValue;
+
+            if (flowIndex >= container.Flows.Count)
+            {
+                return;
+            }
+
+            string newType = "";
+            if (flowIndex == -1)
+            {
+                newType = container.DefaultFlow.InputClass?.ToString();
+            }
+            else
+            {
+                newType = container.Flows[flowIndex].InputClass?.ToString();
+            }
 
             var typeProperty = property.FindPropertyRelative("_type");
             typeProperty.stringValue = newType;
@@ -49,9 +71,14 @@ namespace Flower
             EditorGUI.BeginChangeCheck();
 
             var propLabel = EditorGUI.BeginProperty(position, label, property);
+            if (string.IsNullOrEmpty(typeProperty.stringValue))
+            {
+                EditorGUI.EndProperty();
+                return;
+            }
             _selectedIndex = EditorGUI.Popup(position, propLabel, _selectedIndex, _optionLabels);
 
-            if (EditorGUI.EndChangeCheck())
+            if (EditorGUI.EndChangeCheck() && property.FindPropertyRelative("IsEditable").boolValue)
             {
                 storedProperty.intValue = _selectedIndex < _events.Length ? _selectedIndex : -1;
             }
@@ -76,6 +103,7 @@ namespace Flower
             if (_events.Length == 0)
             {
                 _optionLabels = new[] { new GUIContent($"No events from {type.Name} found.") };
+                stored.intValue = -1;
                 return;
             }
 

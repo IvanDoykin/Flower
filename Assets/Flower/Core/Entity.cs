@@ -1,13 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 namespace Flower
 {
-    public abstract class Entity : MonoBehaviour
+    public abstract class Entity : MonoBehaviour, IEntityInterface
     {
         internal delegate void EntityMessages(object[] messageData);
         internal Dictionary<int, Action<object[]>> Actions = new Dictionary<int, Action<object[]>>();
+        private Dictionary<(string, int), Action<object[]>> _externalActions = new Dictionary<(string, int), Action<object[]>>();
 
         private int _nextActionId;
 
@@ -22,11 +25,12 @@ namespace Flower
 
             if (_nextActionId != -1)
             {
-                throw new Exception($"Not all actions were deleted before initialize. Last id = {_nextActionId}");
+                throw new Exception($"Not all actions were deleted before initialize. Last id = {_nextActionId}.");
             }
 
             _nextActionId = 0;
             Actions = new Dictionary<int, Action<object[]>>();
+            _externalActions = new Dictionary<(string, int), Action<object[]>>();
 
             InitialzeActions();
         }
@@ -57,26 +61,30 @@ namespace Flower
             _nextActionId--;
         }
 
-        internal void Link(int actionId, EntityMessages message)
+        internal void Link(int actionId, EntityMessages message, int messageHash)
         {
-            if (message == null)
+            if (_externalActions.TryGetValue((message.Method.Name, messageHash), out Action<object[]> checkedAction))
             {
-                throw new ArgumentNullException("Try to link 'null' message.");
+                Debug.LogError("fuck u");
+                return;
+            }
+            else
+            {
+                Debug.Log("Method: " + message.Method.Name + " = " + messageHash);
             }
 
-            Debug.Log($"Link action #{actionId} with {message.Method.Name}");
-            Actions[actionId] += new Action<object[]>(message);
+            var action = new Action<object[]>(message);
+            Actions[actionId] += action;
+            _externalActions.Add((message.Method.Name, messageHash), action);
         }
 
-        internal void Unlink(int actionId, EntityMessages message)
+        internal void Unlink(int actionId, MethodInfo method, int messageHash)
         {
-            if (message == null)
+            if (_externalActions.TryGetValue((method.Name, messageHash), out Action<object[]> checkedAction))
             {
-                throw new ArgumentNullException("Try to unlink 'null' message.");
+                Actions[actionId] -= checkedAction;
+                _externalActions.Remove((method.Name, messageHash));
             }
-
-            Debug.Log($"Unlink action #{actionId} with {message.Method.Name}");
-            Actions[actionId] -= new Action<object[]>(message);
         }
     }
 }

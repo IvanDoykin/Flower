@@ -8,8 +8,17 @@ namespace Flower
     {
         [SerializeField] string baseTypeName;
         [SerializeField] string qualifiedName;
+        [SerializeField] public bool IsEditable = true;
 
         internal Type StoredType { get; private set; }
+
+        public static InspectableType<T> Default
+        {
+            get
+            {
+                return new InspectableType<T>(typeof(Entity));
+            }
+        }
 
         public InspectableType(Type typeToStore)
         {
@@ -33,13 +42,19 @@ namespace Flower
 
         public void OnAfterDeserialize()
         {
-            if (string.IsNullOrEmpty(qualifiedName) || qualifiedName == "null")
+            if (Validate())
+            {
+                StoredType = Type.GetType(qualifiedName);
+            }
+            else
             {
                 StoredType = null;
-                return;
             }
+        }
 
-            StoredType = Type.GetType(qualifiedName);
+        public bool Validate()
+        {
+            return !string.IsNullOrEmpty(qualifiedName) && qualifiedName != "null";
         }
 
         public static implicit operator Type(InspectableType<T> t) => t.StoredType;

@@ -17,7 +17,6 @@ public class Interactor : Entity
         DeleteAction(ref HasInteracted);
     }
 
-
     public void Interact(object[] messageData)
     {
         int randomId = UnityEngine.Random.Range(0, 999999);

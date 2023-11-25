@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Entity
+public class Player : Entity, IPlayer
 {
     public event Action<object[]> HasShoot;
 
@@ -28,12 +28,13 @@ public class Player : Entity
 
     public void Shoot(object[] damage)
     {
+        Debug.Log("Shoot");
         HasShoot?.Invoke(damage);
     }
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             Shoot(_damageRaw);
         }

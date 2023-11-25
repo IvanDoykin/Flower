@@ -8,8 +8,8 @@ namespace Flower
     [CustomPropertyDrawer(typeof(Flow), true)]
     public class FlowDrawer : PropertyDrawer
     {
-        private const float SubLabelSpacing = 4;
-        private const float BottomSpacing = 2;
+        private const float _subLabelSpacing = 4;
+        private const float _bottomSpacing = 2;
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -30,14 +30,14 @@ namespace Flower
 
             // draw properties
             var propsCount = props.Length;
-            var width = (pos.width - (propsCount - 1) * SubLabelSpacing) / propsCount;
+            var width = (pos.width - (propsCount - 1) * _subLabelSpacing) / propsCount;
             var contentPos = new Rect(pos.x, pos.y, width, pos.height);
             EditorGUI.indentLevel = 0;
             for (var i = 0; i < propsCount; i++)
             {
                 EditorGUIUtility.labelWidth = EditorStyles.label.CalcSize(subLabels[i]).x;
                 EditorGUI.PropertyField(contentPos, props[i], subLabels[i]);
-                contentPos.x += width + SubLabelSpacing;
+                contentPos.x += width + _subLabelSpacing;
             }
 
             // restore gui settings
