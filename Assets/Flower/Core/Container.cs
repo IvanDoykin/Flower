@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 
@@ -42,7 +43,7 @@ namespace Flower
             var entities = GetComponentsInChildren<Entity>();
             foreach (var entity in entities)
             {
-                AddEntity(entity);
+                InitializeEntity(entity);
             }
         }
 
@@ -65,15 +66,7 @@ namespace Flower
         }
 #endif
 
-        public void AddEntity<T>() where T : Entity
-        {
-            var entity = gameObject.AddComponent<T>();
-            entity.Initialize();
-
-            Entities.Add(entity);
-        }
-
-        public void AddEntity(Entity entity)
+        private void InitializeEntity(Entity entity)
         {
             if (entity == null)
             {
@@ -82,6 +75,19 @@ namespace Flower
 
             Entities.Add(entity);
             entity.Initialize();
+        }
+
+        public void AddEntity(Entity newEntity)
+        {
+            foreach (var entity in Entities)
+            {
+                if (entity == newEntity)
+                {
+                    throw new Exception($"Can't add same entity: {newEntity.GetType()}.");
+                }
+            }
+            InitializeEntity(newEntity);
+            ContainerBinder.Instance.AddEntity(this, newEntity);
         }
     }
 }

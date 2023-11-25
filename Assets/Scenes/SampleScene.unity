@@ -156,12 +156,12 @@ MonoBehaviour:
     InputClass:
       baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-      qualifiedName: Player, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      qualifiedName: Interactor, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       IsEditable: 1
     InputEvent:
-      _type: Player
+      _type: Interactor
       _flowIndex: -1
-      _containerId: 3
+      _containerId: 0
       ActionId: 0
       IsEditable: 1
     OutputClass:
@@ -173,7 +173,7 @@ MonoBehaviour:
       _methodName: ShowDamage
       _type: DamageUI
       _flowIndex: -1
-      _containerId: 3
+      _containerId: 0
       IsEditable: 1
   DefaultEntity: {fileID: 0}
   Flows:
@@ -185,7 +185,7 @@ MonoBehaviour:
     InputEvent:
       _type: Player
       _flowIndex: 0
-      _containerId: 3
+      _containerId: 0
       ActionId: 0
       IsEditable: 0
     OutputClass:
@@ -197,7 +197,29 @@ MonoBehaviour:
       _methodName: ShowDamage
       _type: DamageUI
       _flowIndex: 0
-      _containerId: 3
+      _containerId: 0
+      IsEditable: 1
+  - InputClass:
+      baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      qualifiedName: Interactor, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      IsEditable: 0
+    InputEvent:
+      _type: Interactor
+      _flowIndex: 1
+      _containerId: 0
+      ActionId: 0
+      IsEditable: 0
+    OutputClass:
+      baseTypeName: Flower.IEntityInterface, Flower, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      qualifiedName: DamageUI, Flower, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      IsEditable: 0
+    OutputMethod:
+      _methodName: ShowDamage
+      _type: DamageUI
+      _flowIndex: 1
+      _containerId: 0
       IsEditable: 1
   Entities:
   - {fileID: 1446427742}

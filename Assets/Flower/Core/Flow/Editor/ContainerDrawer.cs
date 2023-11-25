@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEditor;
 using UnityEngine;
 
@@ -90,13 +91,27 @@ namespace Flower
             for (int i = 0; i < property.arraySize; i++)
             {
                 EditorGUILayout.BeginHorizontal();
+
+                GUI.enabled = false;
                 EditorGUILayout.PropertyField(property.GetArrayElementAtIndex(i), GUIContent.none);
+                GUI.enabled = true;
+
                 if (GUILayout.Button("Remove", GUILayout.Width(60)))
                 {
-                    Container container = target as Container;
-                    ContainerBinder.Instance.UnlinkFlow(container.Flows[i], container);
+                    if (field == _flowFieldName)
+                    {
+                        Container container = target as Container;
+                        ContainerBinder.Instance.UnlinkFlow(container.Flows[i], container);
 
-                    property.DeleteArrayElementAtIndex(i);
+                        property.DeleteArrayElementAtIndex(i);
+                    }
+                    else if (field == _entityFieldName)
+                    {
+                        Container container = target as Container;
+                        ContainerBinder.Instance.RemoveEntity(container, container.Entities[i]);
+
+                        property.DeleteArrayElementAtIndex(i);
+                    }
                 }
                 EditorGUILayout.EndHorizontal();
             }
@@ -112,12 +127,14 @@ namespace Flower
                         container.DefaultFlow.OutputMethod
                     );
 
-                    Debug.Log(ContainerBinder.Instance.ValidateFlow(container.DefaultFlow, container));
-                    Debug.Log(ContainerBinder.Instance.CheckFlowOnDifference(container.DefaultFlow, container));
                     if (ContainerBinder.Instance.ValidateFlow(container.DefaultFlow, container) && ContainerBinder.Instance.CheckFlowOnDifference(container.DefaultFlow, container))
                     {
                         container.Flows.Add(newFlow);
                         ContainerBinder.Instance.LinkFlow(newFlow, container);
+                    }
+                    else
+                    {
+                        throw new System.Exception("Try to add invalid flow.");
                     }
                 }
                 else if (field == _entityFieldName)

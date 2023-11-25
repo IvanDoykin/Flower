@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.EventSystems.EventTrigger;
 
 namespace Flower
 {
@@ -136,6 +137,72 @@ namespace Flower
             }
 
             return true;
+        }
+
+        public void AddEntity(Container container, Entity newEntity)
+        {
+            var newEntityType = newEntity.GetType();
+
+            foreach (var flow in container.Flows)
+            {
+                Debug.Log($"{newEntityType} is derived from {flow.OutputClass} = {flow.OutputClass.StoredType.IsAssignableFrom(newEntityType)}.");
+                Debug.Log($"{newEntityType} is derived from {flow.InputClass.StoredType} = {flow.InputClass.StoredType.IsAssignableFrom(newEntityType)}.");
+
+                if (flow.OutputClass.StoredType.IsAssignableFrom(newEntityType))
+                {
+                    foreach (var entity in container.Entities)
+                    {
+                        if (flow.InputClass.StoredType.IsAssignableFrom(entity.GetType()))
+                        {
+                            entity.Link(flow.InputEvent.ActionId, (Entity.EntityMessages)Delegate.CreateDelegate(typeof(Entity.EntityMessages), newEntity, flow.OutputMethod.Info, false), newEntity.GetHashCode());
+                        }
+                    }
+                }
+
+                else if (flow.InputClass.StoredType.IsAssignableFrom(newEntityType))
+                {
+                    foreach (var entity in container.Entities)
+                    {
+                        if (flow.OutputClass.StoredType.IsAssignableFrom(entity.GetType()))
+                        {
+                            newEntity.Link(flow.InputEvent.ActionId, (Entity.EntityMessages)Delegate.CreateDelegate(typeof(Entity.EntityMessages), entity, flow.OutputMethod.Info, false), entity.GetHashCode());
+                        }
+                    }
+                }
+            }
+        }
+
+        public void RemoveEntity(Container container, Entity removedEntity)
+        {
+            var removedEntityType = removedEntity.GetType();
+
+            foreach (var flow in container.Flows)
+            {
+                Debug.Log($"{removedEntityType} is derived from {flow.OutputClass} = {flow.OutputClass.StoredType.IsAssignableFrom(removedEntityType)}.");
+                Debug.Log($"{removedEntityType} is derived from {flow.InputClass.StoredType} = {flow.InputClass.StoredType.IsAssignableFrom(removedEntityType)}.");
+
+                if (flow.OutputClass.StoredType.IsAssignableFrom(removedEntityType))
+                {
+                    foreach (var entity in container.Entities)
+                    {
+                        if (flow.InputClass.StoredType.IsAssignableFrom(entity.GetType()))
+                        {
+                            entity.Unlink(flow.InputEvent.ActionId, flow.OutputMethod.Info, removedEntity.GetHashCode());
+                        }
+                    }
+                }
+
+                else if (flow.InputClass.StoredType.IsAssignableFrom(removedEntityType))
+                {
+                    foreach (var entity in container.Entities)
+                    {
+                        if (flow.OutputClass.StoredType.IsAssignableFrom(entity.GetType()))
+                        {
+                            removedEntity.Unlink(flow.InputEvent.ActionId, flow.OutputMethod.Info, entity.GetHashCode());
+                        }
+                    }
+                }
+            }
         }
 
         public void LinkFlow(Flow flow, Container container)
