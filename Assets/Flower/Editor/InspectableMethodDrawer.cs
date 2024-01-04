@@ -63,7 +63,11 @@ namespace Flower
                 EditorGUI.EndProperty();
                 return;
             }
-            _selectedIndices[propertyPath] = EditorGUI.Popup(position, propLabel, _selectedIndices[propertyPath], _optionLabels[propertyPath]);
+
+            if (_selectedIndices.TryGetValue(propertyPath, out int index))
+            {
+                _selectedIndices[propertyPath] = EditorGUI.Popup(position, propLabel, _selectedIndices[propertyPath], _optionLabels[propertyPath]);
+            }
 
             if (EditorGUI.EndChangeCheck() && property.FindPropertyRelative("IsEditable").boolValue)
             {

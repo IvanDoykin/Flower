@@ -28,7 +28,6 @@ public class Player : Entity, IPlayer
 
     public void Shoot(object[] damage)
     {
-        Debug.Log("Shoot");
         HasShoot?.Invoke(damage);
     }
 

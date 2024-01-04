@@ -35,7 +35,6 @@ public class CrazyPlayer : Entity, IPlayer
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Debug.Log("CRAZZZY SHOOOOT!");
             Shoot(_damageRaw);
         }
     }
