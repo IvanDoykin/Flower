@@ -18,11 +18,11 @@ public class DamageUI : UI
     public void ShowDamage(object[] damage)
     {
         _cachedDamage = (int)damage[0];
-        ShowDebugInfo(new object[0]);
+        ShowDebugInfo(damage);
     }
 
     public override void ShowDebugInfo(object[] info)
     {
-        Debug.Log($"Cached damage = {_cachedDamage}.");
+        //Debug.Log($"Cached damage = {_cachedDamage}.");
     }
 }

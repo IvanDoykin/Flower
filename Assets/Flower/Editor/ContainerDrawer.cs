@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Flower
 {
+#if UNITY_EDITOR
     [CustomEditor(typeof(Container))]
     public class ContainerDrawer : Editor
     {
@@ -158,4 +159,5 @@ namespace Flower
             EditorGUILayout.Space(10f);
         }
     }
+#endif
 }

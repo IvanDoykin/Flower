@@ -4,6 +4,7 @@ using System.Reflection;
 
 namespace Flower
 {
+#if UNITY_EDITOR
     [CustomEditor(typeof(Entity), true)]
     public class EntityDrawer : Editor
     {
@@ -99,4 +100,5 @@ namespace Flower
             return fieldInfo?.FieldType;
         }
     }
+#endif
 }

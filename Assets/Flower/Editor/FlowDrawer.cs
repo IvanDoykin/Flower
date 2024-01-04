@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Flower
 {
+#if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(Flow), true)]
     public class FlowDrawer : PropertyDrawer
     {
@@ -45,4 +46,5 @@ namespace Flower
             EditorGUI.indentLevel = indent;
         }
     }
+#endif 
 }

@@ -6,7 +6,8 @@ public class Logger : MonoBehaviour
 {
     [SerializeField] private bool _isLogEnabled;
 
-    private void Awake()
+    [ExecuteAlways]
+    private void OnValidate()
     {
         Debug.unityLogger.logEnabled = _isLogEnabled;
     }

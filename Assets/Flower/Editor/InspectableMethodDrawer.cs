@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace Flower
 {
+#if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(InspectableMethod), true)]
     public class InspectableMethodDrawer : PropertyDrawer
     {
@@ -119,4 +120,5 @@ namespace Flower
             stored.stringValue = "<empty>";
         }
     }
+#endif
 }

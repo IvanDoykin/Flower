@@ -6,6 +6,7 @@ using Type = System.Type;
 
 namespace Flower
 {
+#if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(InspectableType<>), true)]
     public class InspectableTypeDrawer : PropertyDrawer
     {
@@ -92,4 +93,5 @@ namespace Flower
             stored.stringValue = "null";
         }
     }
+#endif
 }
